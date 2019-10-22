@@ -50,7 +50,7 @@ namespace Lab6
             {
                 Chairs.Add(new Chair());
             }
-            Agents.Add(new Beertender(this));
+            Agents.Add(new Bartender(this));
             Agents.Add(new Waitress(this));
             Agents.Add(new Bouncer(this));
         }

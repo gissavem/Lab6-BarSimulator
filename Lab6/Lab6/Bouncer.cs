@@ -37,7 +37,9 @@ namespace Lab6
 
         public Patron LetPatronInside(Func<string> CheckID)
         {
-            return new Patron(CheckID(), pub);
+            var patron = new Patron(CheckID(), pub);
+            return patron;
+            
         }
 
         private string CheckID()

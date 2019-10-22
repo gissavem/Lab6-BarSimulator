@@ -35,6 +35,7 @@ namespace Lab6
                 OpenClosePub = pubSimulator.ExitSimulation;
             }
             
+            
         }
 
         private void OnOpenCloseClick(object sender, RoutedEventArgs e)

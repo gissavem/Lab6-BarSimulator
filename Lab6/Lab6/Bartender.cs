@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Lab6
 {
-    class Beertender : Agent
+    class Bartender : Agent
     {
-        public Beertender(Pub pub):base(pub)
+        public Bartender(Pub pub):base(pub)
         {
 
         }

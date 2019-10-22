@@ -9,11 +9,12 @@ namespace Lab6
 {
     class PubSimulator
     {
+
         public PubSimulator()
         {
-
         }
         public bool IsSimulating { get; set; }
+
         public void RunSimulation()
         {
             IsSimulating = true;

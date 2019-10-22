@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="1000">
     <Grid x:Name="BarWindow">
-        <ListBox x:Name="Bartender" HorizontalAlignment="Left" Height="250" Margin="40,36,0,0" VerticalAlignment="Top" Width="200"/>
-        <ListBox x:Name="Waitress" HorizontalAlignment="Left" Height="250" Margin="274,36,0,0" VerticalAlignment="Top" Width="200"/>
-        <ListBox x:Name="Guests" HorizontalAlignment="Left" Height="250" Margin="510,36,0,0" VerticalAlignment="Top" Width="200"/>
+        <ListBox x:Name="BartenderLog" HorizontalAlignment="Left" Height="250" Margin="40,36,0,0" VerticalAlignment="Top" Width="200"/>
+        <ListBox x:Name="WaitressLog" HorizontalAlignment="Left" Height="250" Margin="274,36,0,0" VerticalAlignment="Top" Width="200"/>
+        <ListBox x:Name="GuestAndBouncerLog" HorizontalAlignment="Left" Height="250" Margin="510,36,0,0" VerticalAlignment="Top" Width="200"/>
         <Button x:Name="OpenCloseButton" Content="Open/Close Bar" HorizontalAlignment="Left" Margin="40,359,0,0" VerticalAlignment="Top" Width="670" Height="50"/>
         <Button x:Name="BartenderButton" Content="Pause bartender" HorizontalAlignment="Left" Margin="40,304,0,0" VerticalAlignment="Top" Width="200" Height="29"/>
         <Button x:Name="WaitressButton" Content="Pause Waitress" HorizontalAlignment="Left" Margin="274,304,0,0" VerticalAlignment="Top" Width="200" Height="29"/>
