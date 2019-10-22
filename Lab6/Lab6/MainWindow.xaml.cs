@@ -20,10 +20,27 @@ namespace Lab6
     /// </summary>
     public partial class MainWindow : Window
     {
+        Action OpenClosePub;
         public MainWindow()
         {
             InitializeComponent();
+            OpenCloseButton.Click += OnOpenCloseClick;
+            var pubSimulator = new PubSimulator();
+            if (pubSimulator.IsSimulating == false)
+            {
+                OpenClosePub = pubSimulator.RunSimulation;
+            }
+            else
+            {
+                OpenClosePub = pubSimulator.ExitSimulation;
+            }
             
+        }
+
+        private void OnOpenCloseClick(object sender, RoutedEventArgs e)
+        {
+            OpenClosePub();
+            return;
         }
     }
 }

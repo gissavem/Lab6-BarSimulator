@@ -8,16 +8,19 @@ namespace Lab6
 {
     class Bouncer : Agent
     {
+        private readonly Pub pub;
+
         //ITS ME, BLACKSMITH
 
         public Bouncer(Pub pub):base(pub)
         {
-
+            this.pub = pub;
+            pub.Close += GoHome;
         }
 
         public Patron LetPatronInside(Func<string> CheckID)
         {
-            return new Patron(CheckID());
+            return new Patron(CheckID(), pub);
         }
 
         private string CheckID()
