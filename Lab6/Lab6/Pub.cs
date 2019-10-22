@@ -12,7 +12,8 @@ namespace Lab6
     {
         private int totalNumberOfChairs;
         private int totalNumberOfGlasses;
-        public event Action Close; 
+        public event Action ClosePub;
+        public event Action OpenPub;
         public Pub(int totalNumberOfChairs, int totalNumbersOfGlasses, int openingDuraion)
         {
             this.totalNumberOfChairs = totalNumberOfChairs;
@@ -22,12 +23,12 @@ namespace Lab6
 
         internal void Open()
         {
+            OpenPub();
             var keepOpen = Task.Run(() => 
             {
                 Thread.Sleep(120000);
-                Close();
+                ClosePub();
             });
-            
         }
 
 

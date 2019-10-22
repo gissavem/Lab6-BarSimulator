@@ -16,6 +16,7 @@ namespace Lab6
         public bool IsSimulating { get; set; }
         public void RunSimulation()
         {
+            IsSimulating = true;
             var pub = new Pub(9, 8, 120);
             pub.Initialize();
             pub.Open();
