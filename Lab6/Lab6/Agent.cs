@@ -8,6 +8,12 @@ namespace Lab6
 {
     public abstract class Agent
     {
+        public Agent(Pub pub)
+        {
+            Pub = pub;
+        }
+
+        public Pub Pub { get; }
 
         public void GoHome()
         {

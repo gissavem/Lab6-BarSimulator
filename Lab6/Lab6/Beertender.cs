@@ -8,7 +8,7 @@ namespace Lab6
 {
     class Beertender : Agent
     {
-        public Beertender()
+        public Beertender(Pub pub):base(pub)
         {
 
         }

@@ -10,7 +10,7 @@ namespace Lab6
     {
         //ITS ME, BLACKSMITH
 
-        public Bouncer()
+        public Bouncer(Pub pub):base(pub)
         {
 
         }

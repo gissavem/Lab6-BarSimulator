@@ -9,7 +9,7 @@ namespace Lab6
 {
     class Waitress : Agent
     {
-        public Waitress()
+        public Waitress(Pub pub) : base(pub)
         {
 
         }

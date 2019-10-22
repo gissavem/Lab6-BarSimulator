@@ -6,7 +6,7 @@ namespace Lab6
     {
         
 
-        public Patron(string name)
+        public Patron(string name, Pub pub) : base(pub)
         {
             Name = name;
         }

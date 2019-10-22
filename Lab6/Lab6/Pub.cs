@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lab6
 {
-    class Pub
+    public class Pub
     {
         private int totalNumberOfChairs;
         private int totalNumbersOfGlasses;
