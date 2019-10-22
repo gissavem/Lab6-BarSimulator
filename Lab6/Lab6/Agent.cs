@@ -15,7 +15,7 @@ namespace Lab6
 
         public Pub Pub { get; }
 
-        public void GoHome()
+        protected virtual void GoHome()
         {
             //TODO : Implement
         }

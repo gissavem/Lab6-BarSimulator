@@ -9,15 +9,16 @@ namespace Lab6
 {
     class PubSimulator
     {
+        private readonly MainWindow mainWindow;
 
-        public PubSimulator()
+        public PubSimulator(MainWindow mainWindow)
         {
+            this.mainWindow = mainWindow;
         }
-        public bool IsSimulating { get; set; }
 
         public void RunSimulation()
         {
-            IsSimulating = true;
+            mainWindow.OpenClosePub = ExitSimulation;
             var pub = new Pub(9, 8, 120);
             pub.Initialize();
             pub.Open();
@@ -26,6 +27,7 @@ namespace Lab6
 
         internal void ExitSimulation()
         {
+            mainWindow.OpenClosePub = RunSimulation;
             throw new NotImplementedException();
         }
     }

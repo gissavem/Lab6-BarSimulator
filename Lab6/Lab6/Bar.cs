@@ -13,7 +13,8 @@ namespace Lab6
         //collection of dirty glasses
         public Bar()
         {
-
+            AvailableGlasses = new BlockingCollection<Glass>();
+            UsedGlasses = new BlockingCollection<Glass>();
         }
 
         public BlockingCollection<Glass> AvailableGlasses { get; private set; }

@@ -20,27 +20,29 @@ namespace Lab6
     /// </summary>
     public partial class MainWindow : Window
     {
-        Action OpenClosePub;
+        public Action OpenClosePub;
         public MainWindow()
         {
             InitializeComponent();
             OpenCloseButton.Click += OnOpenCloseClick;
-            var pubSimulator = new PubSimulator();
-            if (pubSimulator.IsSimulating == false)
-            {
-                OpenClosePub = pubSimulator.RunSimulation;
-            }
-            else
-            {
-                OpenClosePub = pubSimulator.ExitSimulation;
-            }
+            Bouncer.PatronEnters += OnPatronEnters;
+            var pubSimulator = new PubSimulator(this);
+            OpenClosePub = pubSimulator.RunSimulation;
             
-            
+        }
+
+        private void OnPatronEnters(Patron patron)
+        {
+            this.Dispatcher.Invoke(() => 
+            {
+                GuestAndBouncerLog.Items.Insert(0, patron.Name);
+            });
         }
 
         private void OnOpenCloseClick(object sender, RoutedEventArgs e)
         {
             OpenClosePub();
+
             return;
         }
     }

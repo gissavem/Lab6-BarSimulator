@@ -19,6 +19,10 @@ namespace Lab6
             this.totalNumberOfChairs = totalNumberOfChairs;
             this.totalNumberOfGlasses = totalNumbersOfGlasses;
             OpeningDuraion = openingDuraion;
+            Chairs = new BlockingCollection<Chair>();
+            Guests = new BlockingCollection<Patron>();
+            Agents = new BlockingCollection<Agent>();
+
         }
 
         internal void Open()

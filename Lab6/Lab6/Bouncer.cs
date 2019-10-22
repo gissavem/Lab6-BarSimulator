@@ -12,7 +12,7 @@ namespace Lab6
         private readonly Pub pub;
         private Random random = new Random();
         private CancellationTokenSource cts = new CancellationTokenSource();
-
+        public static event Action<Patron> PatronEnters;
         //ITS ME, BLACKSMITH
 
         public Bouncer(Pub pub):base(pub)
@@ -38,6 +38,7 @@ namespace Lab6
         public Patron LetPatronInside(Func<string> CheckID)
         {
             var patron = new Patron(CheckID(), pub);
+            PatronEnters(patron);
             return patron;
             
         }
@@ -45,6 +46,11 @@ namespace Lab6
         private string CheckID()
         {
             return "Lenart bladh";
+        }
+
+        protected override void GoHome()
+        {
+            cts.Cancel();
         }
     }
 }
