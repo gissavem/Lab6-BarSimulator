@@ -6,14 +6,11 @@ using System.Threading.Tasks;
 
 namespace Lab6
 {
-    public abstract class Agent
+    class PubSimulator
     {
-
-        public void GoHome()
+        public PubSimulator()
         {
 
         }
     }
-
-    
 }

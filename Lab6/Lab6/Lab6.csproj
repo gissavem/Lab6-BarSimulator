@@ -59,6 +59,8 @@
     <Compile Include="Beertender.cs" />
     <Compile Include="Chair.cs" />
     <Compile Include="Glass.cs" />
+    <Compile Include="Pub.cs" />
+    <Compile Include="PubSimulator.cs" />
     <Compile Include="Waitress.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

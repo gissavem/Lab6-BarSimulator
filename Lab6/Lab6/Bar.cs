@@ -17,6 +17,6 @@ namespace Lab6
         }
 
         public BlockingCollection<Glass> AvailableGlasses { get; private set; }
-        public BlockingCollection<Glass> EmptyGlasses { get; private set; }
+        public BlockingCollection<Glass> UsedGlasses { get; private set; }
     }
 }
