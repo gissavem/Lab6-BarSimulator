@@ -5,8 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab6"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="MainWindow" Height="500" Width="1000">
+    <Grid x:Name="BarWindow">
+        <ListBox x:Name="Bartender" HorizontalAlignment="Left" Height="250" Margin="40,36,0,0" VerticalAlignment="Top" Width="200"/>
+        <ListBox x:Name="Waitress" HorizontalAlignment="Left" Height="250" Margin="274,36,0,0" VerticalAlignment="Top" Width="200"/>
+        <ListBox x:Name="Guests" HorizontalAlignment="Left" Height="250" Margin="520,36,0,0" VerticalAlignment="Top" Width="200"/>
+        <Button x:Name="OpenCloseButton" Content="Open/Close Bar" HorizontalAlignment="Left" Margin="40,359,0,0" VerticalAlignment="Top" Width="400" Height="50"/>
+        <Button x:Name="BartenderButton" Content="Pause bartender" HorizontalAlignment="Left" Margin="40,304,0,0" VerticalAlignment="Top" Width="200" Height="29"/>
+        <Button x:Name="WaitressButton" Content="Pause Waitress" HorizontalAlignment="Left" Margin="274,304,0,0" VerticalAlignment="Top" Width="200" Height="29"/>
+        <Button x:Name="GuestButton" Content="Pause Guests" HorizontalAlignment="Left" Margin="520,304,0,0" VerticalAlignment="Top" Width="200" Height="29"/>
+        <Label x:Name="BartenderLabel" Content="Bartender" HorizontalAlignment="Left" Margin="79,10,0,0" VerticalAlignment="Top" Width="108"/>
+        <Label x:Name="WaitressLabel" Content="Waitress" HorizontalAlignment="Left" Margin="316,10,0,0" VerticalAlignment="Top" Width="108"/>
+        <Label x:Name="GuestsLabel" Content="Guests" HorizontalAlignment="Left" Margin="567,10,0,0" VerticalAlignment="Top" Width="108"/>
+        <Label x:Name="EmptyChairsLabel" Content="Number of empty chairs:" HorizontalAlignment="Left" Margin="763,39,0,0" VerticalAlignment="Top" Width="181"/>
+        <Label x:Name="NumberOfGuestsLabel" Content="Number of guests:" HorizontalAlignment="Left" Margin="763,71,0,0" VerticalAlignment="Top" Width="181"/>
+        <Label x:Name="NumberOfGlassesLabel" Content="Number of glasses:" HorizontalAlignment="Left" Margin="763,102,0,0" VerticalAlignment="Top" Width="181"/>
+
     </Grid>
 </Window>
