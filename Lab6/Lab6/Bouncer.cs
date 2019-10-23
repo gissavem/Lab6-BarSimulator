@@ -10,6 +10,7 @@ namespace Lab6
     class Bouncer : Agent
     {
         public static event Action<Patron> PatronEnters;
+        public static event Action BouncerGoesHome;
         private readonly Pub pub;
         private Random random = new Random();
         private CancellationTokenSource cts = new CancellationTokenSource();
@@ -57,6 +58,7 @@ namespace Lab6
         {
             cts.Cancel();
             isWorking = false;
+            BouncerGoesHome();
         }
     }
 }

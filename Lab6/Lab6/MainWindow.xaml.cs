@@ -27,6 +27,7 @@ namespace Lab6
             InitializeComponent();
             OpenCloseButton.Click += OnOpenCloseClick;
             Bouncer.PatronEnters += OnPatronEnters;
+            Bouncer.BouncerGoesHome += OnBouncerGoesHome;
             var pubInitializer = new PubInitializer();
             pub = new Pub();
             pub.Bar = pubInitializer.GenerateBar(8);
@@ -37,6 +38,16 @@ namespace Lab6
             var pubSimulator = new PubSimulator(pub, this);
             OpenClosePub = pubSimulator.RunSimulation;
             
+        }
+
+        private void OnBouncerGoesHome()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                GuestAndBouncerLog.Items.Insert(0,
+                    (GetTimeAsString(pub) + 
+                    " The bouncer leaves."));
+            });
         }
 
         public void UpdateLabels()
@@ -53,10 +64,8 @@ namespace Lab6
             Dispatcher.Invoke(() =>
             {
                 GuestAndBouncerLog.Items.Insert(0,
-                    (GetTime(pub.OpeningTimeStamp).Minutes)
-                    +":"+
-                    (GetTime(pub.OpeningTimeStamp).Seconds) + " " + patron.Name +
-                    " joins the party.");
+                    (GetTimeAsString(pub) + " " + patron.Name +
+                    " joins the party."));
             });
         }
 
@@ -66,7 +75,11 @@ namespace Lab6
 
             return;
         }
-        public static TimeSpan GetTime(DateTime openingTime)
+        private static string GetTimeAsString(Pub pub)
+        {
+            return (GetTimeSpan(pub.OpeningTimeStamp).Minutes) + ":" + (GetTimeSpan(pub.OpeningTimeStamp).Seconds);
+        }
+        private static TimeSpan GetTimeSpan(DateTime openingTime)
         { 
             return DateTime.Now - openingTime;
         }
