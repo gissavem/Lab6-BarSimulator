@@ -10,8 +10,7 @@ namespace Lab6
     class Bouncer : Agent
     {
         public static event Action<Patron> PatronEnters;
-        public static event Action BouncerGoesHome;
-        private readonly Pub pub;
+        public static event Action GoesHome;
         private Random random = new Random();
         private CancellationTokenSource cts = new CancellationTokenSource();
         private bool isWorking = true; 
@@ -19,7 +18,6 @@ namespace Lab6
 
         public Bouncer(Pub pub):base(pub)
         {
-            this.pub = pub;
             pub.ClosePub += GoHome;
             pub.OpenPub += OnOpenPub;
         }
@@ -36,14 +34,14 @@ namespace Lab6
                     {
                         return;
                     }
-                    pub.Guests.Add(LetPatronInside(CheckID));
+                    Pub.Guests.Add(LetPatronInside(CheckID));
                 }
             });
         }
 
         public Patron LetPatronInside(Func<string> CheckID)
         {
-            var patron = new Patron(CheckID(), pub);
+            var patron = new Patron(CheckID(), Pub);
             PatronEnters(patron);
             return patron;
             
@@ -58,7 +56,7 @@ namespace Lab6
         {
             cts.Cancel();
             isWorking = false;
-            BouncerGoesHome();
+            GoesHome();
         }
     }
 }

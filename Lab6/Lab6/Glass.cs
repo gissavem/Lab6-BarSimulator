@@ -14,5 +14,6 @@ namespace Lab6
         }
 
         public bool IsDirty { get; set; }
+        public bool HasBeer { get; set; }
     }
 }

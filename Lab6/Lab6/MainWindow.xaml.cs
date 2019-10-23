@@ -27,7 +27,11 @@ namespace Lab6
             InitializeComponent();
             OpenCloseButton.Click += OnOpenCloseClick;
             Bouncer.PatronEnters += OnPatronEnters;
-            Bouncer.BouncerGoesHome += OnBouncerGoesHome;
+            Bouncer.GoesHome += OnBouncerGoesHome;
+            Bartender.GetsGlass += OnBartenderGetsGlass;
+            Bartender.PoursBeer += OnBartenderPoursBeer;
+            Bartender.GoesHome += OnBartenderGoesHome;
+
             var pubInitializer = new PubInitializer();
             pub = new Pub();
             pub.Bar = pubInitializer.GenerateBar(8);
@@ -38,6 +42,29 @@ namespace Lab6
             var pubSimulator = new PubSimulator(pub, this);
             OpenClosePub = pubSimulator.RunSimulation;
             
+        }
+
+        private void OnBartenderPoursBeer(Patron patron)
+        {
+            Dispatcher.Invoke(() => 
+            {
+                BartenderLog.Items.Insert(0,
+                    (GetTimeAsString(pub) + $" the bartender pours {patron.Name} a beer."));
+            });
+        }
+
+        private void OnBartenderGetsGlass()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                BartenderLog.Items.Insert(0,
+                    (GetTimeAsString(pub) + " the bartender gets a glass."));
+            });
+        }
+
+        private void OnBartenderGoesHome()
+        {
+            throw new NotImplementedException();
         }
 
         private void OnBouncerGoesHome()

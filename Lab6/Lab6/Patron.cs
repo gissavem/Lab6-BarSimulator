@@ -12,5 +12,6 @@ namespace Lab6
         }
 
         public string Name { get; set; }
+        public Glass Beer { get; set; }
     }
 }
