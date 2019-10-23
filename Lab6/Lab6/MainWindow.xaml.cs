@@ -21,12 +21,14 @@ namespace Lab6
     public partial class MainWindow : Window
     {
         public Action OpenClosePub;
+        private Pub pub;
         public MainWindow()
         {
             InitializeComponent();
             OpenCloseButton.Click += OnOpenCloseClick;
+            Bouncer.PatronEnters += OnPatronEnters;
             var pubInitializer = new PubInitializer();
-            var pub = new Pub();
+            pub = new Pub();
             pub.Bar = pubInitializer.GenerateBar(8);
             pub.Agents = pubInitializer.GenerateEmployees(pub);
             pub.Chairs = pubInitializer.GenereateChairs(9);
@@ -36,7 +38,22 @@ namespace Lab6
             
         }
 
-        
+        public void UpdateLabels()
+        {
+           Dispatcher.Invoke(() =>
+            {
+                NumberOfGuestsLabel.Content = pub.Guests.Count() + 1;
+            });
+        }
+
+        private void OnPatronEnters(Patron patron)
+        {
+            UpdateLabels();
+            Dispatcher.Invoke(() =>
+            {
+                GuestAndBouncerLog.Items.Insert(0, patron.Name);
+            });
+        }
 
         private void OnOpenCloseClick(object sender, RoutedEventArgs e)
         {

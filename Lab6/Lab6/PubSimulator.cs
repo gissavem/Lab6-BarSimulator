@@ -16,7 +16,6 @@ namespace Lab6
         public PubSimulator(Pub pub, MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
-            Bouncer.PatronEnters += OnPatronEnters;
             this.pub = pub;
         }
 
@@ -27,22 +26,9 @@ namespace Lab6
 
         }
 
-        public void UpdateLabels()
-        {
-            mainWindow.Dispatcher.Invoke(() =>
-            {
-                mainWindow.NumberOfGuestsLabel.Content = pub.Guests.Count() + 1;
-            });
-        }
+       
 
-        private void OnPatronEnters(Patron patron)
-        {
-            UpdateLabels();
-            mainWindow.Dispatcher.Invoke(() =>
-            {
-                mainWindow.GuestAndBouncerLog.Items.Insert(0, patron.Name);
-            });
-        }
+       
 
         internal void ExitSimulation()
         {

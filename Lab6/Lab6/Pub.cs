@@ -10,8 +10,6 @@ namespace Lab6
 {
     public class Pub
     {
-        private int totalNumberOfChairs;
-        private int totalNumberOfGlasses;
         public event Action ClosePub;
         public event Action OpenPub;
         public Pub()
@@ -21,6 +19,12 @@ namespace Lab6
             Agents = new BlockingCollection<Agent>();
 
         }
+
+        public int OpeningDuration { get; set; }
+        public Bar Bar { get; set;}
+        public BlockingCollection<Chair> Chairs { get; set; }
+        public BlockingCollection<Patron> Guests { get; set; }
+        public BlockingCollection<Agent> Agents { get; set; }
 
         internal void Open()
         {
@@ -32,10 +36,5 @@ namespace Lab6
             });
         }
 
-        public int OpeningDuration { get; set; }
-        public Bar Bar { get; set;}
-        public BlockingCollection<Chair> Chairs { get; set; }
-        public BlockingCollection<Patron> Guests { get; set; }
-        public BlockingCollection<Agent> Agents { get; set; }
     }
 }
