@@ -13,17 +13,16 @@ namespace Lab6
         private readonly MainWindow mainWindow;
         private Pub pub;
 
-        public PubSimulator(MainWindow mainWindow)
+        public PubSimulator(Pub pub, MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
             Bouncer.PatronEnters += OnPatronEnters;
+            this.pub = pub;
         }
 
         public void RunSimulation()
         {
             mainWindow.OpenClosePub = ExitSimulation;
-            pub = new Pub(9, 8, 120);
-            pub.Initialize();
             pub.Open();
 
         }

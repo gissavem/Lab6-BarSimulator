@@ -25,7 +25,13 @@ namespace Lab6
         {
             InitializeComponent();
             OpenCloseButton.Click += OnOpenCloseClick;
-            var pubSimulator = new PubSimulator(this);
+            var pubInitializer = new PubInitializer();
+            var pub = new Pub();
+            pub.Bar = pubInitializer.GenerateBar(8);
+            pub.Agents = pubInitializer.GenerateEmployees(pub);
+            pub.Chairs = pubInitializer.GenereateChairs(9);
+            pub.OpeningDuration = pubInitializer.SetOpeningDuration();
+            var pubSimulator = new PubSimulator(pub, this);
             OpenClosePub = pubSimulator.RunSimulation;
             
         }

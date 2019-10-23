@@ -1,0 +1,56 @@
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Lab6
+{
+    class PubInitializer
+    {
+        public PubInitializer()
+        {
+
+        }
+
+        internal BlockingCollection<Chair> GenereateChairs(int totalNumberOfChairs)
+        {
+
+            var chairs = new BlockingCollection<Chair>();
+            for (int i = 0; i < totalNumberOfChairs; i++)
+            {
+                chairs.Add(new Chair());
+            }
+            return chairs;
+        }
+
+        public Bar GenerateBar(int totalNumberOfGlasses)
+        {
+            var bar = new Bar();
+            for (int i = 0; i < totalNumberOfGlasses; i++)
+            {
+                bar.AvailableGlasses.Add(new Glass());
+            }
+
+            return bar;
+        }
+
+        public BlockingCollection<Agent> GenerateEmployees(Pub pub)
+        {
+            var employees = new BlockingCollection<Agent>
+            {
+                new Waitress(pub),
+                new Bartender(pub),
+                new Bouncer(pub)
+            };
+            return employees;
+        }
+
+        public int SetOpeningDuration()
+        {
+            int duration = 120000;
+            return duration;
+        }
+    }
+}
