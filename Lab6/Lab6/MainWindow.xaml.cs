@@ -25,6 +25,7 @@ namespace Lab6
         public MainWindow()
         {
             InitializeComponent();
+            var logHandler = new LogHandler(this);
             OpenCloseButton.Click += OnOpenCloseClick;
             Bouncer.PatronEnters += OnPatronEnters;
             Bouncer.GoesHome += OnBouncerGoesHome;
@@ -49,7 +50,7 @@ namespace Lab6
             Dispatcher.Invoke(() => 
             {
                 BartenderLog.Items.Insert(0,
-                    (GetTimeAsString(pub) + $" the bartender pours {patron.Name} a beer."));
+                    (GetTimeAsString(pub) + $": pours {patron.Name} a beer."));
             });
         }
 
@@ -58,7 +59,7 @@ namespace Lab6
             Dispatcher.Invoke(() =>
             {
                 BartenderLog.Items.Insert(0,
-                    (GetTimeAsString(pub) + " the bartender gets a glass."));
+                    (GetTimeAsString(pub) + ": gets a glass."));
             });
         }
 
