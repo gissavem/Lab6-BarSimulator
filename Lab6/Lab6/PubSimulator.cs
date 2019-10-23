@@ -26,10 +26,6 @@ namespace Lab6
 
         }
 
-       
-
-       
-
         internal void ExitSimulation()
         {
             mainWindow.OpenClosePub = RunSimulation;

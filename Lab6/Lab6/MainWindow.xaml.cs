@@ -27,16 +27,11 @@ namespace Lab6
             InitializeComponent();
             var logHandler = new LogHandler(this);
             OpenCloseButton.Click += OnOpenCloseClick;
-            Bouncer.PatronEnters += OnPatronEnters;
-            Bouncer.GoesHome += OnBouncerGoesHome;
-            Bartender.GetsGlass += OnBartenderGetsGlass;
-            Bartender.PoursBeer += OnBartenderPoursBeer;
-            Bartender.GoesHome += OnBartenderGoesHome;
 
             var pubInitializer = new PubInitializer();
-            pub = new Pub();
+            pub = new Pub(logHandler);
             pub.Bar = pubInitializer.GenerateBar(8);
-            pub.Agents = pubInitializer.GenerateEmployees(pub);
+            pub.Employees = pubInitializer.GenerateEmployees(pub, logHandler);
             pub.Chairs = pubInitializer.GenereateChairs(9);
             pub.OpeningTimeStamp = pubInitializer.SetOpeningTimestamp();
             pub.OpeningDuration = pubInitializer.SetOpeningDuration();
@@ -45,72 +40,26 @@ namespace Lab6
             
         }
 
-        private void OnBartenderPoursBeer(Patron patron)
+        public string GetTimeAsString()
         {
-            Dispatcher.Invoke(() => 
-            {
-                BartenderLog.Items.Insert(0,
-                    (GetTimeAsString(pub) + $": pours {patron.Name} a beer."));
-            });
+            return (GetTimeSpan(pub.OpeningTimeStamp).Minutes) + ":" + (GetTimeSpan(pub.OpeningTimeStamp).Seconds);
         }
-
-        private void OnBartenderGetsGlass()
-        {
-            Dispatcher.Invoke(() =>
-            {
-                BartenderLog.Items.Insert(0,
-                    (GetTimeAsString(pub) + ": gets a glass."));
-            });
+        public static TimeSpan GetTimeSpan(DateTime openingTime)
+        { 
+            return DateTime.Now - openingTime;
         }
-
-        private void OnBartenderGoesHome()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnBouncerGoesHome()
-        {
-            Dispatcher.Invoke(() =>
-            {
-                GuestAndBouncerLog.Items.Insert(0,
-                    (GetTimeAsString(pub) + 
-                    " The bouncer leaves."));
-            });
-        }
-
         public void UpdateLabels()
         {
-           Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(() =>
             {
                 NumberOfGuestsLabel.Content = "Number of guests: " + (pub.Guests.Count() + 1);
             });
         }
-
-        private void OnPatronEnters(Patron patron)
-        {
-            UpdateLabels();
-            Dispatcher.Invoke(() =>
-            {
-                GuestAndBouncerLog.Items.Insert(0,
-                    (GetTimeAsString(pub) + " " + patron.Name +
-                    " joins the party."));
-            });
-        }
-
         private void OnOpenCloseClick(object sender, RoutedEventArgs e)
         {
             OpenClosePub();
 
             return;
         }
-        private static string GetTimeAsString(Pub pub)
-        {
-            return (GetTimeSpan(pub.OpeningTimeStamp).Minutes) + ":" + (GetTimeSpan(pub.OpeningTimeStamp).Seconds);
-        }
-        private static TimeSpan GetTimeSpan(DateTime openingTime)
-        { 
-            return DateTime.Now - openingTime;
-        }
-
     }
 }

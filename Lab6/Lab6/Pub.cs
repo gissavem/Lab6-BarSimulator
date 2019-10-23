@@ -10,29 +10,38 @@ namespace Lab6
 {
     public class Pub
     {
-        public event Action ClosePub;
-        public event Action OpenPub;
-        public Pub()
+        public Pub(LogHandler logHandler)
         { 
             Chairs = new BlockingCollection<Chair>();
             Guests = new BlockingCollection<Patron>();
-            Agents = new BlockingCollection<Agent>();
-
+            Employees = new BlockingCollection<Agent>();
+            LogHandler = logHandler;
         }
         public DateTime OpeningTimeStamp { get; set; }
         public int OpeningDuration { get; set; }
         public Bar Bar { get; set;}
         public BlockingCollection<Chair> Chairs { get; set; }
         public BlockingCollection<Patron> Guests { get; set; }
-        public BlockingCollection<Agent> Agents { get; set; }
+        public BlockingCollection<Agent> Employees { get; set; }
+        public LogHandler LogHandler { get; }
 
         internal void Open()
         {
-            OpenPub();
+            foreach (var employee in Employees)
+            {
+                employee.Simulate();
+            }
             var keepOpen = Task.Run(() => 
             {
                 Thread.Sleep(OpeningDuration);
-                ClosePub();
+                foreach (Agent bouncer in Employees)
+                {
+                    if (bouncer is Bouncer)
+                    {
+                        bouncer.GoHome();
+                        break;
+                    }
+                }
             });
         }
 

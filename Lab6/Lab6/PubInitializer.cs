@@ -36,13 +36,13 @@ namespace Lab6
             return bar;
         }
 
-        public BlockingCollection<Agent> GenerateEmployees(Pub pub)
+        public BlockingCollection<Agent> GenerateEmployees(Pub pub, LogHandler logHandler)
         {
             var employees = new BlockingCollection<Agent>
             {
-                new Waitress(pub),
-                new Bartender(pub),
-                new Bouncer(pub)
+                new Waitress(pub, logHandler),
+                new Bartender(pub, logHandler),
+                new Bouncer(pub, logHandler)
             };
             return employees;
         }

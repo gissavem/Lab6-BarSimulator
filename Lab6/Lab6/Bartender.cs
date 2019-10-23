@@ -10,17 +10,10 @@ namespace Lab6
     class Bartender : Agent
     {
         private CancellationTokenSource cts = new CancellationTokenSource();
-        public static event Action GetsGlass;
-        public static event Action<Patron> PoursBeer;
-        public static event Action GoesHome;
-
-
-        public Bartender(Pub pub):base(pub)
+        public Bartender(Pub pub, LogHandler logHandler) :base(pub, logHandler)
         {
-            pub.OpenPub += OnOpenPub;
         }
-
-        private void OnOpenPub()
+        public override void Simulate()
         {
             var ct = cts.Token;
             var isServingPatrons = Task.Run(() =>
@@ -30,9 +23,9 @@ namespace Lab6
                     foreach (var patron in Pub.Guests)
                     {
                         if (patron.Beer == null)
-                        {                            
+                        {
                             ServePatronBeer(patron, GetGlass);
-                        }                        
+                        }
                     }
                 }
             });
@@ -48,7 +41,7 @@ namespace Lab6
 
         private void PourBeer(Glass beerToServe, Patron patron)
         {
-            PoursBeer(patron);
+            LogHandler.UpdateLog($" Pours {patron.Name} a beer.", LogHandler.MainWindow.BartenderLog);
             Thread.Sleep(3000);
             beerToServe.HasBeer = true;
             beerToServe.IsDirty = true;
@@ -60,11 +53,14 @@ namespace Lab6
            {
         
            }
-           GetsGlass();
+           LogHandler.UpdateLog(" gets glass", LogHandler.MainWindow.BartenderLog);
            Thread.Sleep(3000);
            return Pub.Bar.AvailableGlasses.Take();
         }
 
-
+        public override void GoHome()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

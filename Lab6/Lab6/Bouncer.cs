@@ -9,23 +9,38 @@ namespace Lab6
 {
     class Bouncer : Agent
     {
-        public static event Action<Patron> PatronEnters;
-        public static event Action GoesHome;
         private Random random = new Random();
         private CancellationTokenSource cts = new CancellationTokenSource();
         private bool isWorking = true; 
         //ITS ME, BLACKSMITH
 
-        public Bouncer(Pub pub):base(pub)
+        public Bouncer(Pub pub, LogHandler logHandler):base(pub, logHandler)
         {
-            pub.ClosePub += GoHome;
-            pub.OpenPub += OnOpenPub;
+        }
+        public Patron LetPatronInside(Func<string> CheckID)
+        {
+            var patron = new Patron(CheckID(), Pub, LogHandler);
+            LogHandler.UpdateLog($" {patron.Name} joins the party.", LogHandler.MainWindow.GuestAndBouncerLog);
+            return patron;
+            
         }
 
-        private void OnOpenPub()
+        private string CheckID()
+        {
+            return NameList.AvailableNames.Take();
+        }
+
+        public override void GoHome()
+        {
+            cts.Cancel();
+            isWorking = false;
+            LogHandler.UpdateLog("The bouncer goes home.", LogHandler.MainWindow.GuestAndBouncerLog);
+        }
+
+        public override void Simulate()
         {
             var ct = cts.Token;
-            var welcomeGuestsTask = Task.Run(() => 
+            var welcomeGuestsTask = Task.Run(() =>
             {
                 while (ct.IsCancellationRequested == false)
                 {
@@ -37,26 +52,6 @@ namespace Lab6
                     Pub.Guests.Add(LetPatronInside(CheckID));
                 }
             });
-        }
-
-        public Patron LetPatronInside(Func<string> CheckID)
-        {
-            var patron = new Patron(CheckID(), Pub);
-            PatronEnters(patron);
-            return patron;
-            
-        }
-
-        private string CheckID()
-        {
-            return NameList.AvailableNames.Take();
-        }
-
-        protected override void GoHome()
-        {
-            cts.Cancel();
-            isWorking = false;
-            GoesHome();
-        }
+        }       
     }
 }

@@ -8,17 +8,19 @@ namespace Lab6
 {
     public abstract class Agent
     {
-        public Agent(Pub pub)
+        public Agent(Pub pub, LogHandler logHandler)
         {
             Pub = pub;
+            LogHandler = logHandler;
         }
 
         public Pub Pub { get; }
+        public LogHandler LogHandler { get; }
 
-        protected virtual void GoHome()
-        {
-            //TODO : Implement
-        }
+        public abstract void GoHome();
+
+        public abstract void Simulate();
+
     }
 
     
