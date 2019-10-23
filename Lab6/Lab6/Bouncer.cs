@@ -9,10 +9,11 @@ namespace Lab6
 {
     class Bouncer : Agent
     {
+        public static event Action<Patron> PatronEnters;
         private readonly Pub pub;
         private Random random = new Random();
         private CancellationTokenSource cts = new CancellationTokenSource();
-        public static event Action<Patron> PatronEnters;
+        private bool isWorking = true; 
         //ITS ME, BLACKSMITH
 
         public Bouncer(Pub pub):base(pub)
@@ -29,7 +30,11 @@ namespace Lab6
             {
                 while (ct.IsCancellationRequested == false)
                 {
-                    Thread.Sleep(random.Next(3000, 10001));
+                    Thread.Sleep(random.Next(3000, 10000));
+                    if (isWorking == false)
+                    {
+                        return;
+                    }
                     pub.Guests.Add(LetPatronInside(CheckID));
                 }
             });
@@ -51,6 +56,7 @@ namespace Lab6
         protected override void GoHome()
         {
             cts.Cancel();
+            isWorking = false;
         }
     }
 }

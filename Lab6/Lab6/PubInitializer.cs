@@ -46,10 +46,13 @@ namespace Lab6
             };
             return employees;
         }
-
+        public DateTime SetOpeningTimestamp()
+        {
+            return DateTime.UtcNow;
+        }
         public int SetOpeningDuration()
         {
-            int duration = 120000;
+            int duration = 20000;
             return duration;
         }
     }

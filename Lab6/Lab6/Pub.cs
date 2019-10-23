@@ -19,7 +19,7 @@ namespace Lab6
             Agents = new BlockingCollection<Agent>();
 
         }
-
+        public DateTime OpeningTimeStamp { get; set; }
         public int OpeningDuration { get; set; }
         public Bar Bar { get; set;}
         public BlockingCollection<Chair> Chairs { get; set; }
@@ -31,7 +31,7 @@ namespace Lab6
             OpenPub();
             var keepOpen = Task.Run(() => 
             {
-                Thread.Sleep(120000);
+                Thread.Sleep(OpeningDuration);
                 ClosePub();
             });
         }

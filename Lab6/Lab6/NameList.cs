@@ -18,6 +18,5 @@ namespace Lab6
             "Torsten Flinck", "Sebbe Staxx", "Lisa Lusis", "Lennart Bladh", "Kajsa Warg", "Tupac Shakur", "Augustus Ceasar"
         };
 
-        public static BlockingCollection<string> UsedNames;
     }
 }

@@ -32,6 +32,7 @@ namespace Lab6
             pub.Bar = pubInitializer.GenerateBar(8);
             pub.Agents = pubInitializer.GenerateEmployees(pub);
             pub.Chairs = pubInitializer.GenereateChairs(9);
+            pub.OpeningTimeStamp = pubInitializer.SetOpeningTimestamp();
             pub.OpeningDuration = pubInitializer.SetOpeningDuration();
             var pubSimulator = new PubSimulator(pub, this);
             OpenClosePub = pubSimulator.RunSimulation;
@@ -42,7 +43,7 @@ namespace Lab6
         {
            Dispatcher.Invoke(() =>
             {
-                NumberOfGuestsLabel.Content = pub.Guests.Count() + 1;
+                NumberOfGuestsLabel.Content = "Number of guests: " + (pub.Guests.Count() + 1);
             });
         }
 
@@ -51,7 +52,11 @@ namespace Lab6
             UpdateLabels();
             Dispatcher.Invoke(() =>
             {
-                GuestAndBouncerLog.Items.Insert(0, patron.Name);
+                GuestAndBouncerLog.Items.Insert(0,
+                    (GetTime(pub.OpeningTimeStamp).Minutes)
+                    +":"+
+                    (GetTime(pub.OpeningTimeStamp).Seconds) + " " + patron.Name +
+                    " joins the party.");
             });
         }
 
@@ -61,5 +66,10 @@ namespace Lab6
 
             return;
         }
+        public static TimeSpan GetTime(DateTime openingTime)
+        { 
+            return DateTime.Now - openingTime;
+        }
+
     }
 }
