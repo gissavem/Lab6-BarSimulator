@@ -20,11 +20,11 @@ namespace Lab6
             {
                 while (ct.IsCancellationRequested == false)
                 {
-                    foreach (var patron in Pub.Guests)
+                    foreach (var keyValuePair in Pub.Guests)
                     {
-                        if (patron.Beer == null)
+                        if (keyValuePair.Value.Beer == null)
                         {
-                            ServePatronBeer(patron, GetGlass);
+                            ServePatronBeer(keyValuePair.Value, GetGlass);
                         }
                     }
                 }
@@ -44,7 +44,6 @@ namespace Lab6
             LogHandler.UpdateLog($" Pours {patron.Name} a beer.", LogHandler.MainWindow.BartenderLog);
             Thread.Sleep(3000);
             beerToServe.HasBeer = true;
-            beerToServe.IsDirty = true;
         }
 
         private Glass GetGlass()

@@ -13,7 +13,7 @@ namespace Lab6
         public Pub(LogHandler logHandler)
         { 
             Chairs = new BlockingCollection<Chair>();
-            Guests = new BlockingCollection<Patron>();
+            Guests = new ConcurrentDictionary<int, Patron>();
             Employees = new BlockingCollection<Agent>();
             LogHandler = logHandler;
         }
@@ -21,7 +21,7 @@ namespace Lab6
         public int OpeningDuration { get; set; }
         public Bar Bar { get; set;}
         public BlockingCollection<Chair> Chairs { get; set; }
-        public BlockingCollection<Patron> Guests { get; set; }
+        public ConcurrentDictionary<int, Patron> Guests { get; set; }
         public BlockingCollection<Agent> Employees { get; set; }
         public LogHandler LogHandler { get; }
 
@@ -43,6 +43,7 @@ namespace Lab6
                     }
                 }
             });
+            
         }
 
     }
