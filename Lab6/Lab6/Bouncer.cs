@@ -45,7 +45,7 @@ namespace Lab6
 
         private string CheckID()
         {
-            return "Lenart bladh";
+            return NameList.AvailableNames.Take();
         }
 
         protected override void GoHome()

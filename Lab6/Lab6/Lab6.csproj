@@ -59,6 +59,7 @@
     <Compile Include="Bartender.cs" />
     <Compile Include="Chair.cs" />
     <Compile Include="Glass.cs" />
+    <Compile Include="NameList.cs" />
     <Compile Include="Pub.cs" />
     <Compile Include="PubSimulator.cs" />
     <Compile Include="Waitress.cs" />
