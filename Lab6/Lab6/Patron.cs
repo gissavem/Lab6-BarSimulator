@@ -16,11 +16,17 @@ namespace Lab6
             var ct = cts.Token;
             IndexNumber = indexNumber;
             Name = name;
-            var simulateGuests = Task.Run(Simulate);
+            var simulateGuest = Task.Run(Simulate);
         }
+        public int IndexNumber { get; }
+        public string Name { get; set; }
+        public Glass Beer { get; set; }
+        public bool IsSittingDown { get; set; }
+        public bool HasBeenServed { get; set; }
         public override void Simulate()
         {
-            LogHandler.UpdateLog($" {Name} goes to bar.", LogHandler.MainWindow.GuestAndBouncerLog);
+            Thread.Sleep(1000);
+            LogHandler.UpdateLog($" {Name} went to the bar.", LogHandler.MainWindow.GuestAndBouncerLog);
 
             while (Beer == null)
             {
@@ -58,15 +64,9 @@ namespace Lab6
 
         public override void GoHome()
         {
-            Patron patronToRemove;
             LogHandler.UpdateLog($" {Name} went home.",
                                       LogHandler.MainWindow.GuestAndBouncerLog);
-            Pub.Guests.TryRemove(IndexNumber, out patronToRemove);
+            Pub.Guests.TryRemove(IndexNumber, out _);
         }
-
-        public int IndexNumber { get; }
-        public string Name { get; set; }
-        public Glass Beer { get; set; }
-        public bool IsSittingDown { get; set; }
     }
 }

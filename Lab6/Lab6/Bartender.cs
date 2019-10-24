@@ -15,51 +15,58 @@ namespace Lab6
         }
         public override void Simulate()
         {
-            var ct = cts.Token;
-            var isServingPatrons = Task.Run(() =>
-            {
-                while (ct.IsCancellationRequested == false)
-                {
-                    foreach (var keyValuePair in Pub.Guests)
-                    {
-                        if (keyValuePair.Value.Beer == null)
-                        {
-                            ServePatronBeer(keyValuePair.Value, GetGlass);
-                        }
-                    }
-                }
-            });
+            var isServingPatrons = Task.Run(ServeGuests);            
         }
 
-        private void ServePatronBeer(Patron patron, Func<Glass> getGlass)
+        private void ServeGuests()
         {
-            var beerToServe = getGlass();
+            var ct = cts.Token;
+            while (ct.IsCancellationRequested == false)
+            {
+                if (Pub.Guests.IsEmpty && Pub.CurrentState == PubState.Open)
+                {
+                    GoHome();
+                    return;
+                }
+
+                foreach (var keyValuePair in Pub.Guests)
+                {
+                    if (keyValuePair.Value.Beer != null || keyValuePair.Value.HasBeenServed == true)
+                        continue;
+
+                    ServePatronBeer(keyValuePair.Value);                    
+                }
+            }
+        }
+        private void ServePatronBeer(Patron patron)
+        {
+            var beerToServe = GetGlass();
             PourBeer(beerToServe, patron);
             patron.Beer = beerToServe;
-
+            patron.HasBeenServed = true;
         }
-
-        private void PourBeer(Glass beerToServe, Patron patron)
-        {
-            LogHandler.UpdateLog($" Pours {patron.Name} a beer.", LogHandler.MainWindow.BartenderLog);
-            Thread.Sleep(3000);
-            beerToServe.HasBeer = true;
-        }
-
         private Glass GetGlass()
         {
            while (Pub.Bar.AvailableGlasses.Any() == false)
            {
         
            }
-           LogHandler.UpdateLog(" gets glass", LogHandler.MainWindow.BartenderLog);
            Thread.Sleep(3000);
+           LogHandler.UpdateLog(" fetched a glass", LogHandler.MainWindow.BartenderLog);
            return Pub.Bar.AvailableGlasses.Take();
+        }
+        private void PourBeer(Glass beerToServe, Patron patron)
+        {
+            Thread.Sleep(3000);
+            LogHandler.UpdateLog($" poured {patron.Name} a beer.", LogHandler.MainWindow.BartenderLog);
+            beerToServe.HasBeer = true;
         }
 
         public override void GoHome()
         {
-            throw new NotImplementedException();
+            cts.Cancel();
+            LogHandler.UpdateLog(" closed bar and went home.", LogHandler.MainWindow.BartenderLog);
+            Pub.CurrentState = PubState.Closed;
         }
     }
 }

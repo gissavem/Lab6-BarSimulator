@@ -9,6 +9,7 @@ using System.Media;
 
 namespace Lab6
 {
+    public enum PubState { PreOpening, Open, Closed }
     public class Pub
     {
         public SoundPlayer soundPlayer;
@@ -19,7 +20,9 @@ namespace Lab6
             Guests = new ConcurrentDictionary<int, Patron>();
             Employees = new BlockingCollection<Agent>();
             LogHandler = logHandler;
+            CurrentState = PubState.PreOpening;
         }
+        public PubState CurrentState { get; set; }
         public DateTime OpeningTimeStamp { get; set; }
         public int OpeningDuration { get; set; }
         public Bar Bar { get; set;}

@@ -20,9 +20,8 @@ namespace Lab6
         public Patron LetPatronInside(Func<string> CheckID)
         {
             var patron = new Patron(Pub.Guests.Count, CheckID(), Pub, LogHandler);
-            LogHandler.UpdateLog($" {patron.Name} joins the party.", LogHandler.MainWindow.GuestAndBouncerLog);
+            LogHandler.UpdateLog($" {patron.Name} joined the party.", LogHandler.MainWindow.GuestAndBouncerLog);
             return patron;
-            
         }
 
         private string CheckID()
@@ -34,7 +33,7 @@ namespace Lab6
         {
             cts.Cancel();
             isWorking = false;
-            LogHandler.UpdateLog("The bouncer goes home.", LogHandler.MainWindow.GuestAndBouncerLog);
+            LogHandler.UpdateLog("The bouncer went home.", LogHandler.MainWindow.GuestAndBouncerLog);
         }
 
         public override void Simulate()
@@ -50,6 +49,8 @@ namespace Lab6
                         return;
                     }
                     Pub.Guests.TryAdd(Pub.Guests.Count, LetPatronInside(CheckID));
+                    if (Pub.CurrentState == PubState.PreOpening)
+                        Pub.CurrentState = PubState.Open;
                 }
             });
         }       
