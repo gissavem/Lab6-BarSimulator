@@ -25,16 +25,12 @@ namespace Lab6
         public MainWindow()
         {
             InitializeComponent();
-            var logHandler = new LogHandler(this);
             OpenCloseButton.Click += OnOpenCloseClick;
 
-            var pubInitializer = new PubInitializer();
+            var logHandler = new LogHandler(this);
             pub = new Pub(logHandler);
-            pub.Bar = pubInitializer.GenerateBar(8);
-            pub.Employees = pubInitializer.GenerateEmployees(pub, logHandler);
-            pub.Chairs = pubInitializer.GenereateChairs(9);
-            pub.OpeningTimeStamp = pubInitializer.SetOpeningTimestamp();
-            pub.OpeningDuration = pubInitializer.SetOpeningDuration();
+            var pubInitializer = new PubInitializer();
+            pubInitializer.InitializePub(pub);
             var pubSimulator = new PubSimulator(pub, this);
             OpenClosePub = pubSimulator.RunSimulation;
             
