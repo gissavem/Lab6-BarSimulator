@@ -22,7 +22,6 @@ namespace Lab6
             var patron = new Patron(Pub.Guests.Count, CheckID(), Pub, LogHandler);
             LogHandler.UpdateLog($" {patron.Name} joins the party.", LogHandler.MainWindow.GuestAndBouncerLog);
             return patron;
-            
         }
 
         private string CheckID()
@@ -50,6 +49,8 @@ namespace Lab6
                         return;
                     }
                     Pub.Guests.TryAdd(Pub.Guests.Count, LetPatronInside(CheckID));
+                    if (Pub.CurrentState == PubState.PreOpening)
+                        Pub.CurrentState = PubState.Open;
                 }
             });
         }       
