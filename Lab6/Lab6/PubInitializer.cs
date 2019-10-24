@@ -9,9 +9,18 @@ namespace Lab6
 {
     class PubInitializer
     {
+
         public PubInitializer()
         {
 
+        }
+        internal void InitializePub(Pub pub)
+        {
+            pub.Bar = GenerateBar(8);
+            pub.Employees = GenerateEmployees(pub, pub.LogHandler);
+            pub.Chairs = GenereateChairs(9);
+            pub.OpeningTimeStamp = SetOpeningTimestamp();
+            pub.OpeningDuration = SetOpeningDuration();
         }
 
         internal BlockingCollection<Chair> GenereateChairs(int totalNumberOfChairs)
@@ -46,6 +55,8 @@ namespace Lab6
             };
             return employees;
         }
+
+
         public DateTime SetOpeningTimestamp()
         {
             return DateTime.UtcNow;
