@@ -28,10 +28,11 @@ namespace Lab6
         {
             Thread.Sleep(1000);
             LogHandler.UpdateLog($" {Name} went to the bar.", LogHandler.MainWindow.GuestAndBouncerLog);
+            Pub.BarQueue.Add(this);
 
-            while (Beer == null)
+            while (HasBeenServed == false)
             {
-        
+                Thread.Sleep(10);
             }
 
             while (IsSittingDown == false && Beer != null)
@@ -68,6 +69,13 @@ namespace Lab6
             LogHandler.UpdateLog($" {Name} went home.",
                                       LogHandler.MainWindow.GuestAndBouncerLog);
             Pub.Guests.TryRemove(IndexNumber, out _);
+            foreach (var chair in Pub.Chairs)
+            {
+                if (chair.Occupant == this)
+                {
+                    chair.Occupant = null;
+                }
+            }
         }
     }
 }

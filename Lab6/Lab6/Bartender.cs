@@ -23,7 +23,7 @@ namespace Lab6
             var ct = cts.Token;
             while (ct.IsCancellationRequested == false)
             {
-                if (Pub.Guests.IsEmpty && Pub.CurrentState == PubState.Closed)
+                if (Pub.CanEmployeesLeave())
                 {
                     GoHome();
                     return;
@@ -34,12 +34,10 @@ namespace Lab6
 
         private void ServeNextPatron()
         {
-            foreach (var keyValuePair in Pub.Guests)
+            Thread.Sleep(10);
+            if (Pub.BarQueue.Any())
             {
-                if (keyValuePair.Value.Beer != null || keyValuePair.Value.HasBeenServed == true)
-                    continue;
-
-                ServePatronBeer(keyValuePair.Value);
+                ServePatronBeer(Pub.BarQueue.Take());
             }
         }
 
@@ -54,7 +52,7 @@ namespace Lab6
         {
            while (Pub.Bar.AvailableGlasses.Any() == false)
            {
-        
+                Thread.Sleep(10);
            }
            Thread.Sleep(3000);
            LogHandler.UpdateLog(" fetched a glass", LogHandler.MainWindow.BartenderLog);

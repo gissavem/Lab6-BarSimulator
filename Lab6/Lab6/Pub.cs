@@ -19,6 +19,7 @@ namespace Lab6
             Chairs = new BlockingCollection<Chair>();
             Guests = new ConcurrentDictionary<int, Patron>();
             Employees = new BlockingCollection<Agent>();
+            BarQueue = new BlockingCollection<Patron>();
             LogHandler = logHandler;
             CurrentState = PubState.PreOpening;
         }
@@ -27,6 +28,7 @@ namespace Lab6
         public int OpeningDuration { get; set; }
         public Bar Bar { get; set;}
         public BlockingCollection<Chair> Chairs { get; set; }
+        public BlockingCollection<Patron> BarQueue { get; set; }
         public ConcurrentDictionary<int, Patron> Guests { get; set; }
         public BlockingCollection<Agent> Employees { get; set; }
         public LogHandler LogHandler { get; }
@@ -61,6 +63,21 @@ namespace Lab6
                 soundPlayer.PlayLooping();
             });
         }
+        public bool CanEmployeesLeave()
+        {
+            return Guests.Any() == false && BarQueue.Any() == false && CurrentState == PubState.Closed && ChairsEmpty();
+        }
 
+        private bool ChairsEmpty()
+        {
+            foreach (var chair in Chairs)
+            {
+                if (chair.Occupant != null)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

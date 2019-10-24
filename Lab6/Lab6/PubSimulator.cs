@@ -22,6 +22,7 @@ namespace Lab6
         public void RunSimulation()
         {
             mainWindow.OpenClosePub = ExitSimulation;
+            pub.OpeningTimeStamp = DateTime.Now;
             pub.Open();
 
         }

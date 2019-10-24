@@ -19,7 +19,6 @@ namespace Lab6
             pub.Bar = GenerateBar(8);
             pub.Employees = GenerateEmployees(pub, pub.LogHandler);
             pub.Chairs = GenereateChairs(9);
-            pub.OpeningTimeStamp = SetOpeningTimestamp();
             pub.OpeningDuration = SetOpeningDuration();
         }
 
@@ -54,12 +53,6 @@ namespace Lab6
                 new Bouncer(pub, logHandler)
             };
             return employees;
-        }
-
-
-        public DateTime SetOpeningTimestamp()
-        {
-            return DateTime.UtcNow;
         }
         public int SetOpeningDuration()
         {

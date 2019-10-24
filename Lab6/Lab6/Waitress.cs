@@ -28,7 +28,7 @@ namespace Lab6
             var ct = cts.Token;
             while(ct.IsCancellationRequested == false)
             {
-                if (Pub.Guests.IsEmpty && Pub.CurrentState == PubState.Closed)
+                if (Pub.CanEmployeesLeave())
                 {
                     GoHome();
                     return;
@@ -70,6 +70,7 @@ namespace Lab6
                         Tray.Add(temp);
                     }
                 }
+                Thread.Sleep(10);
             }
         }
 
