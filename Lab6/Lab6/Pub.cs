@@ -54,7 +54,7 @@ namespace Lab6
 
         public void StartJukeBox()
         {
-            soundPlayer = new SoundPlayer(@"C: \Users\alexander\Documents\GitHub\Lab6 - BarSimulator\Lab6\Sound\starwarsmusic");
+            soundPlayer = new SoundPlayer(@"C:\Users\alexander\Documents\GitHub\Lab6-BarSimulator\Lab6\Sound\starwarsmusic.wav");
             soundPlayer.PlayLooping();
         }
 

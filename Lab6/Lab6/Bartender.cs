@@ -15,7 +15,7 @@ namespace Lab6
         }
         public override void Simulate()
         {
-            var isServingPatrons = Task.Run(ServeGuests);            
+            var isServingPatrons = Task.Run(()=>ServeGuests());            
         }
 
         private void ServeGuests()

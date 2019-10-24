@@ -16,13 +16,14 @@ namespace Lab6
             var ct = cts.Token;
             IndexNumber = indexNumber;
             Name = name;
-            var simulateGuest = Task.Run(Simulate);
+            var simulateGuest = Task.Run(()=>Simulate());
         }
         public int IndexNumber { get; }
         public string Name { get; set; }
         public Glass Beer { get; set; }
         public bool IsSittingDown { get; set; }
         public bool HasBeenServed { get; set; }
+
         public override void Simulate()
         {
             Thread.Sleep(1000);
