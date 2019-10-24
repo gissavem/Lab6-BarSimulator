@@ -58,7 +58,7 @@ namespace Lab6
         private void OnOpenCloseClick(object sender, RoutedEventArgs e)
         {
             OpenClosePub();
-            pub.StartJukeBox();
+           // pub.StartJukeBox();
             return;
         }
     }
