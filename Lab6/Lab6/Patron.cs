@@ -25,7 +25,8 @@ namespace Lab6
         public bool HasBeenServed { get; set; }
         public override void Simulate()
         {
-            LogHandler.UpdateLog($" {Name} goes to bar.", LogHandler.MainWindow.GuestAndBouncerLog);
+            Thread.Sleep(1000);
+            LogHandler.UpdateLog($" {Name} went to the bar.", LogHandler.MainWindow.GuestAndBouncerLog);
 
             while (Beer == null)
             {

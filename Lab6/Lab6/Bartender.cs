@@ -51,21 +51,21 @@ namespace Lab6
            {
         
            }
-           LogHandler.UpdateLog(" gets glass", LogHandler.MainWindow.BartenderLog);
            Thread.Sleep(3000);
+           LogHandler.UpdateLog(" fetched a glass", LogHandler.MainWindow.BartenderLog);
            return Pub.Bar.AvailableGlasses.Take();
         }
         private void PourBeer(Glass beerToServe, Patron patron)
         {
-            LogHandler.UpdateLog($" Pours {patron.Name} a beer.", LogHandler.MainWindow.BartenderLog);
             Thread.Sleep(3000);
+            LogHandler.UpdateLog($" poured {patron.Name} a beer.", LogHandler.MainWindow.BartenderLog);
             beerToServe.HasBeer = true;
         }
 
         public override void GoHome()
         {
             cts.Cancel();
-            LogHandler.UpdateLog(" closes bar and goes home.", LogHandler.MainWindow.BartenderLog);
+            LogHandler.UpdateLog(" closed bar and went home.", LogHandler.MainWindow.BartenderLog);
             Pub.CurrentState = PubState.Closed;
         }
     }
