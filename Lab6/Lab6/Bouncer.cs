@@ -58,6 +58,7 @@ namespace Lab6
                 return;
             }
             Pub.Guests.TryAdd(Pub.Guests.Count, LetPatronInside(CheckID));
+            Pub.TotalNumberOfGuests++;
             if (Pub.CurrentState == PubState.PreOpening)
                 Pub.CurrentState = PubState.Open;
         }

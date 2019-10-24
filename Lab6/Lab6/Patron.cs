@@ -69,6 +69,7 @@ namespace Lab6
             LogHandler.UpdateLog($" {Name} went home.",
                                       LogHandler.MainWindow.GuestAndBouncerLog);
             Pub.Guests.TryRemove(IndexNumber, out _);
+            Pub.TotalNumberOfGuests--;
             foreach (var chair in Pub.Chairs)
             {
                 if (chair.Occupant == this)

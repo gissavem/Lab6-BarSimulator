@@ -24,6 +24,7 @@ namespace Lab6
             mainWindow.OpenClosePub = ExitSimulation;
             pub.OpeningTimeStamp = DateTime.Now;
             pub.Open();
+            mainWindow.LabelTimer.Start();
 
         }
 

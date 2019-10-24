@@ -32,6 +32,7 @@ namespace Lab6
         public ConcurrentDictionary<int, Patron> Guests { get; set; }
         public BlockingCollection<Agent> Employees { get; set; }
         public LogHandler LogHandler { get; }
+        public int TotalNumberOfGuests { get; set; }
 
         internal void Open()
         {
@@ -63,6 +64,20 @@ namespace Lab6
                 soundPlayer.PlayLooping();
             });
         }
+
+        internal int NumberOfEmptyChairs()
+        {
+            int emptyChairs = 0;
+            foreach (Chair chair in Chairs)
+            {
+                if (chair.Occupant == null)
+                {
+                    emptyChairs++;
+                }
+            }
+            return emptyChairs;
+        }
+
         public bool CanEmployeesLeave()
         {
             return Guests.Any() == false && BarQueue.Any() == false && CurrentState == PubState.Closed && ChairsEmpty();

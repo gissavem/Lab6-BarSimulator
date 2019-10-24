@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -21,11 +22,13 @@ namespace Lab6
     public partial class MainWindow : Window
     {
         public Action OpenClosePub;
+        public Timer LabelTimer = new Timer(5);
         private Pub pub;
         public MainWindow()
         {
             InitializeComponent();
             OpenCloseButton.Click += OnOpenCloseClick;
+            LabelTimer.Elapsed += OnTimerTick;
 
             var logHandler = new LogHandler(this);
             pub = new Pub(logHandler);
@@ -36,19 +39,26 @@ namespace Lab6
             
         }
 
+        private void OnTimerTick(object sender, ElapsedEventArgs e)
+        {
+            UpdateLabels();
+        }
+
         public string GetTimeAsString()
         {
             return (GetTimeSpan(pub.OpeningTimeStamp).Minutes) + ":" + (GetTimeSpan(pub.OpeningTimeStamp).Seconds);
         }
         public static TimeSpan GetTimeSpan(DateTime openingTime)
-        { 
+        {
             return DateTime.Now - openingTime;
         }
         public void UpdateLabels()
         {
             Dispatcher.Invoke(() =>
             {
-                NumberOfGuestsLabel.Content = "Number of guests: " + (pub.Guests.Count() + 1);
+                NumberOfGuestsLabel.Content = "Number of guests: " + (pub.TotalNumberOfGuests);
+                NumberOfGlassesLabel.Content = "Number of available glasses: " + (pub.Bar.AvailableGlasses.Count());
+                EmptyChairsLabel.Content = "Number of empty chairs: " + pub.NumberOfEmptyChairs();
             });
         }
         private void OnOpenCloseClick(object sender, RoutedEventArgs e)

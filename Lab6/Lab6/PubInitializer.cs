@@ -16,9 +16,9 @@ namespace Lab6
         }
         internal void InitializePub(Pub pub)
         {
-            pub.Bar = GenerateBar(8);
+            pub.Bar = GenerateBar(20);
             pub.Employees = GenerateEmployees(pub, pub.LogHandler);
-            pub.Chairs = GenereateChairs(9);
+            pub.Chairs = GenereateChairs(3);
             pub.OpeningDuration = SetOpeningDuration();
         }
 
