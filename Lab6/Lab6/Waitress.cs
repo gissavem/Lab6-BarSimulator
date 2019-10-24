@@ -41,8 +41,8 @@ namespace Lab6
 
         private void ReturnCleanGlasses()
         {
-            LogHandler.UpdateLog(" returning glasses to bar", LogHandler.MainWindow.WaitressLog);
-            Thread.Sleep(5000);
+            Thread.Sleep(3000);
+            LogHandler.UpdateLog(" returned glasses to bar", LogHandler.MainWindow.WaitressLog);
             foreach (var glass in Tray)
             {
                 var temp = Tray.Take();
@@ -53,7 +53,7 @@ namespace Lab6
         private void WashDishes()
         {
             LogHandler.UpdateLog(" washing dishes", LogHandler.MainWindow.WaitressLog);
-            Thread.Sleep(5000);
+            Thread.Sleep(15000);
         }
 
         private void FetchGlasses()

@@ -63,7 +63,7 @@ namespace Lab6
         }
         public int SetOpeningDuration()
         {
-            int duration = 20000;
+            int duration = 120000;
             return duration;
         }
     }

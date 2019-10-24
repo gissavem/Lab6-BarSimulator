@@ -23,7 +23,7 @@ namespace Lab6
             var ct = cts.Token;
             while (ct.IsCancellationRequested == false)
             {
-                if (Pub.Guests.IsEmpty && Pub.CurrentState == PubState.Open)
+                if (Pub.Guests.IsEmpty && Pub.CurrentState == PubState.Closed)
                 {
                     GoHome();
                     return;
@@ -71,7 +71,6 @@ namespace Lab6
         {
             cts.Cancel();
             LogHandler.UpdateLog(" closed bar and went home.", LogHandler.MainWindow.BartenderLog);
-            Pub.CurrentState = PubState.Closed;
         }
     }
 }

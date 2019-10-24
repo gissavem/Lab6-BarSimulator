@@ -47,6 +47,7 @@ namespace Lab6
             cts.Cancel();
             isWorking = false;
             LogHandler.UpdateLog("The bouncer went home.", LogHandler.MainWindow.GuestAndBouncerLog);
+            Pub.CurrentState = PubState.Closed;
         }
 
         public void CheckNextpatronInLine()
