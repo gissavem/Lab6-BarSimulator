@@ -28,16 +28,21 @@ namespace Lab6
                     GoHome();
                     return;
                 }
-
-                foreach (var keyValuePair in Pub.Guests)
-                {
-                    if (keyValuePair.Value.Beer != null || keyValuePair.Value.HasBeenServed == true)
-                        continue;
-
-                    ServePatronBeer(keyValuePair.Value);                    
-                }
+                ServeNextPatron();
             }
         }
+
+        private void ServeNextPatron()
+        {
+            foreach (var keyValuePair in Pub.Guests)
+            {
+                if (keyValuePair.Value.Beer != null || keyValuePair.Value.HasBeenServed == true)
+                    continue;
+
+                ServePatronBeer(keyValuePair.Value);
+            }
+        }
+
         private void ServePatronBeer(Patron patron)
         {
             var beerToServe = GetGlass();

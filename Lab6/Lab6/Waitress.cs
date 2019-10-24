@@ -28,6 +28,11 @@ namespace Lab6
             var ct = cts.Token;
             while(ct.IsCancellationRequested == false)
             {
+                if (Pub.Guests.IsEmpty && Pub.CurrentState == PubState.Closed)
+                {
+                    GoHome();
+                    return;
+                }
                 FetchGlasses();
                 WashDishes();
                 ReturnCleanGlasses();
@@ -75,9 +80,10 @@ namespace Lab6
 
         public override void GoHome()
         {
-            throw new NotImplementedException();
+            cts.Cancel();
+            LogHandler.UpdateLog(" drank a beer and went home.", LogHandler.MainWindow.WaitressLog);
         }
 
-        //Bricka för glas
+       
     }
 }

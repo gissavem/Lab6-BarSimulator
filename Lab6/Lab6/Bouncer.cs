@@ -17,6 +17,19 @@ namespace Lab6
         public Bouncer(Pub pub, LogHandler logHandler):base(pub, logHandler)
         {
         }
+
+        public override void Simulate()
+        {
+            var ct = cts.Token;
+            var welcomeGuestsTask = Task.Run(() =>
+            {
+                while (ct.IsCancellationRequested == false)
+                {
+                    CheckNextpatronInLine();
+                }
+            });
+        }
+
         public Patron LetPatronInside(Func<string> CheckID)
         {
             var patron = new Patron(Pub.Guests.Count, CheckID(), Pub, LogHandler);
@@ -36,23 +49,18 @@ namespace Lab6
             LogHandler.UpdateLog("The bouncer went home.", LogHandler.MainWindow.GuestAndBouncerLog);
         }
 
-        public override void Simulate()
+        public void CheckNextpatronInLine()
         {
-            var ct = cts.Token;
-            var welcomeGuestsTask = Task.Run(() =>
+            Thread.Sleep(random.Next(3000, 10000));
+            if (isWorking == false)
             {
-                while (ct.IsCancellationRequested == false)
-                {
-                    Thread.Sleep(random.Next(3000, 10000));
-                    if (isWorking == false)
-                    {
-                        return;
-                    }
-                    Pub.Guests.TryAdd(Pub.Guests.Count, LetPatronInside(CheckID));
-                    if (Pub.CurrentState == PubState.PreOpening)
-                        Pub.CurrentState = PubState.Open;
-                }
-            });
-        }       
+                return;
+            }
+            Pub.Guests.TryAdd(Pub.Guests.Count, LetPatronInside(CheckID));
+            if (Pub.CurrentState == PubState.PreOpening)
+                Pub.CurrentState = PubState.Open;
+        }
+
+        
     }
 }
