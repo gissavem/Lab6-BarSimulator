@@ -5,11 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Media;
 
 namespace Lab6
 {
     public class Pub
     {
+        public SoundPlayer soundPlayer;
+
         public Pub(LogHandler logHandler)
         { 
             Chairs = new BlockingCollection<Chair>();
@@ -44,6 +47,12 @@ namespace Lab6
                 }
             });
             
+        }
+
+        public void StartJukeBox()
+        {
+            soundPlayer = new SoundPlayer(@"C: \Users\alexander\Documents\GitHub\Lab6 - BarSimulator\Lab6\Sound\starwarsmusic");
+            soundPlayer.PlayLooping();
         }
 
     }
