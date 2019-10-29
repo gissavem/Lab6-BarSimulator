@@ -17,8 +17,8 @@ namespace Lab6
             var ct = cts.Token;
             IndexNumber = indexNumber;
             Name = name;
-            var simulateGuest = Task.Run(()=>Simulate());
             drinkingTime = random.Next(20000, 30000) * speedModifier;
+            var simulateGuest = Task.Run(()=>Simulate());
         }
         public int IndexNumber { get; }
         public string Name { get; set; }
@@ -48,8 +48,9 @@ namespace Lab6
                         break;
                     }
                 }
+                Thread.Sleep(10);
             }
-        
+
             if (Beer.HasBeer == true && IsSittingDown)
             {
  
