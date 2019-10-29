@@ -7,8 +7,8 @@
             Pub = pub;
             LogHandler = logHandler;
         }
-        public Pub Pub { get; private set; }
-        public LogHandler LogHandler { get; private set; }
+        protected Pub Pub { get; private set; }
+        protected LogHandler LogHandler { get; private set; }
         public abstract void GoHome();
         public abstract void Simulate();
     }    

@@ -7,9 +7,7 @@ namespace Lab6
     class Bartender : Agent
     {
         private CancellationTokenSource cts = new CancellationTokenSource();
-        public Bartender(Pub pub, LogHandler logHandler) :base(pub, logHandler)
-        {
-        }
+        public Bartender(Pub pub, LogHandler logHandler) : base(pub, logHandler) { }
         public override void Simulate()
         {
             var isServingPatrons = Task.Run(()=>ServeGuests());            
