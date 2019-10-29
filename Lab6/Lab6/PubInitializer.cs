@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Concurrent;
 
 namespace Lab6
 {
@@ -18,11 +13,10 @@ namespace Lab6
             OpeningDuration = 120000;
         }
         public PubSetting Settings { get; set; }
-        public int NumberOfGlasses { get; set; }
-        public int NumberOfChairs { get; set; }
-        public int OpeningDuration { get; set; }
-
-        internal void InitializePub(Pub pub)
+        private int NumberOfGlasses { get; set; }
+        private int NumberOfChairs { get; set; }
+        private int OpeningDuration { get; set; }
+        public void InitializePub(Pub pub)
         {
             GetSettings();
             pub.Bar = GenerateBar(NumberOfGlasses);
@@ -30,7 +24,6 @@ namespace Lab6
             pub.Chairs = GenereateChairs(NumberOfChairs);
             pub.OpeningDuration = OpeningDuration;
         }
-
         private void GetSettings()
         {
             switch (Settings)
@@ -48,19 +41,7 @@ namespace Lab6
                     break;
             }
         }
-
-        internal BlockingCollection<Chair> GenereateChairs(int totalNumberOfChairs)
-        {
-
-            var chairs = new BlockingCollection<Chair>();
-            for (int i = 0; i < totalNumberOfChairs; i++)
-            {
-                chairs.Add(new Chair());
-            }
-            return chairs;
-        }
-
-        public Bar GenerateBar(int totalNumberOfGlasses)
+        private Bar GenerateBar(int totalNumberOfGlasses)
         {
             var bar = new Bar();
             for (int i = 0; i < totalNumberOfGlasses; i++)
@@ -70,8 +51,7 @@ namespace Lab6
 
             return bar;
         }
-
-        public BlockingCollection<Agent> GenerateEmployees(Pub pub, LogHandler logHandler)
+        private BlockingCollection<Agent> GenerateEmployees(Pub pub, LogHandler logHandler)
         {
             var employees = new BlockingCollection<Agent>
             {
@@ -80,6 +60,16 @@ namespace Lab6
                 new Bouncer(pub, logHandler)
             };
             return employees;
+        }
+        private BlockingCollection<Chair> GenereateChairs(int totalNumberOfChairs)
+        {
+
+            var chairs = new BlockingCollection<Chair>();
+            for (int i = 0; i < totalNumberOfChairs; i++)
+            {
+                chairs.Add(new Chair());
+            }
+            return chairs;
         }
     }
 }

@@ -33,7 +33,6 @@ namespace Lab6
             var settingsWindow = new SettingsWindow(this);
             var logHandler = new LogHandler(this);
             Pub = new Pub(logHandler);
-            Pub.PubTimer = LabelTimer;
             PubInitializer = new PubInitializer();
             var pubSimulator = new PubSimulator(Pub, this);
             OpenClosePub = pubSimulator.RunSimulation;
