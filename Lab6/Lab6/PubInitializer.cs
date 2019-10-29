@@ -25,10 +25,10 @@ namespace Lab6
         internal void InitializePub(Pub pub)
         {
             GetSettings();
-            pub.Bar = GenerateBar(20);
+            pub.Bar = GenerateBar(NumberOfGlasses);
             pub.Employees = GenerateEmployees(pub, pub.LogHandler);
-            pub.Chairs = GenereateChairs(3);
-            pub.OpeningDuration = SetOpeningDuration();
+            pub.Chairs = GenereateChairs(NumberOfChairs);
+            pub.OpeningDuration = OpeningDuration;
         }
 
         private void GetSettings()
@@ -45,8 +45,6 @@ namespace Lab6
                     break;
                 case PubSetting.FiveMinuteBar:
                     OpeningDuration = 300000;
-                    break;
-                case PubSetting.BusLoad:
                     break;
             }
         }
@@ -82,11 +80,6 @@ namespace Lab6
                 new Bouncer(pub, logHandler)
             };
             return employees;
-        }
-        public int SetOpeningDuration()
-        {
-            int duration = 120000;
-            return duration;
         }
     }
 }

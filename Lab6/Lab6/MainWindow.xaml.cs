@@ -40,19 +40,15 @@ namespace Lab6
             settingsWindow.Show();            
             this.Hide();               
         }
-
         private void OnTimerTick(object sender, ElapsedEventArgs e)
         {
             UpdateLabels();
         }
-
-        public string GetTimeAsString()
+        private void OnOpenCloseClick(object sender, RoutedEventArgs e)
         {
-            return (GetTimeSpan(Pub.OpeningTimeStamp).Minutes) + ":" + (GetTimeSpan(Pub.OpeningTimeStamp).Seconds);
-        }
-        public static TimeSpan GetTimeSpan(DateTime openingTime)
-        {
-            return DateTime.Now - openingTime;
+            OpenClosePub();
+            Pub.StartJukeBox();
+            return;
         }
         public void UpdateLabels()
         {
@@ -64,11 +60,13 @@ namespace Lab6
                 Timer.Content = "Time elapsed: " + GetTimeAsString();
             });
         }
-        private void OnOpenCloseClick(object sender, RoutedEventArgs e)
+        public string GetTimeAsString()
         {
-            OpenClosePub();
-            Pub.StartJukeBox();
-            return;
+            return (GetTimeSpan(Pub.OpeningTimeStamp).Minutes) + ":" + (GetTimeSpan(Pub.OpeningTimeStamp).Seconds);
+        }
+        public static TimeSpan GetTimeSpan(DateTime openingTime)
+        {
+            return DateTime.Now - openingTime;
         }
     }
 }

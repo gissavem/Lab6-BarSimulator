@@ -44,17 +44,52 @@ namespace Lab6
             }
             var keepOpen = Task.Run(() => 
             {
-                Thread.Sleep(OpeningDuration);
-                foreach (Agent bouncer in Employees)
+                if (CurrentSetting == PubSetting.BusLoad)
                 {
-                    if (bouncer is Bouncer)
-                    {
-                        bouncer.GoHome();
-                        break;
-                    }
+                    RunBusLoadMode();
+
+                }
+                else
+                {
+                    RunDefaultMode();
                 }
             });
             
+        }
+
+        private void RunDefaultMode()
+        {
+            Thread.Sleep(OpeningDuration);
+            foreach (Agent bouncer in Employees)
+            {
+                if (bouncer is Bouncer)
+                {
+                    bouncer.GoHome();
+                    break;
+                }
+            }
+        }
+
+        private void RunBusLoadMode()
+        {
+            Thread.Sleep(20000);
+            foreach (Agent agent in Employees)
+            {
+                if (agent is Bouncer bouncer)
+                {
+                    bouncer.LetBusIn();
+                    break;
+                }
+            }
+            Thread.Sleep(OpeningDuration - 20000);
+            foreach (Agent agent in Employees)
+            {
+                if (agent is Bouncer)
+                {
+                    agent.GoHome();
+                    break;
+                }
+            }
         }
 
         public void StartJukeBox()
