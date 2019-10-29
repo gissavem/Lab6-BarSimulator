@@ -80,7 +80,11 @@ namespace Lab6
 
         public bool CanEmployeesLeave()
         {
-            return Guests.Any() == false && BarQueue.Any() == false && CurrentState == PubState.Closed && ChairsEmpty();
+            if (CurrentState == PubState.Closed && TotalNumberOfGuests == 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         private bool ChairsEmpty()
