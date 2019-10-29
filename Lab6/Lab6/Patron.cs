@@ -18,7 +18,7 @@ namespace Lab6
             IndexNumber = indexNumber;
             Name = name;
             var simulateGuest = Task.Run(()=>Simulate());
-            drinkingTime = random.Next(10000, 20000) * speedModifier;
+            drinkingTime = random.Next(20000, 30000) * speedModifier;
         }
         public int IndexNumber { get; }
         public string Name { get; set; }
