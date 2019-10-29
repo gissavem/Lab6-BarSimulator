@@ -63,7 +63,9 @@
     <Compile Include="NameList.cs" />
     <Compile Include="Pub.cs" />
     <Compile Include="PubInitializer.cs" />
+    <Compile Include="PubSetting.cs" />
     <Compile Include="PubSimulator.cs" />
+    <Compile Include="PubState.cs" />
     <Compile Include="Waitress.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
