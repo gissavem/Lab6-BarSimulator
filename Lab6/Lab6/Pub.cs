@@ -9,7 +9,6 @@ using System.Media;
 
 namespace Lab6
 {
-    public enum PubState { PreOpening, Open, Closed }
     public class Pub
     {
         public SoundPlayer soundPlayer;
@@ -87,16 +86,5 @@ namespace Lab6
             return false;
         }
 
-        private bool ChairsEmpty()
-        {
-            foreach (var chair in Chairs)
-            {
-                if (chair.Occupant != null)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
     }
 }
