@@ -20,6 +20,7 @@
         <Label x:Name="EmptyChairsLabel" Content="Number of empty chairs:" HorizontalAlignment="Left" Margin="770,335,0,0" VerticalAlignment="Top" Width="181"/>
         <Label x:Name="NumberOfGuestsLabel" Content="Number of guests:" HorizontalAlignment="Left" Margin="770,367,0,0" VerticalAlignment="Top" Width="181"/>
         <Label x:Name="NumberOfGlassesLabel" Content="Number of glasses:" HorizontalAlignment="Left" Margin="770,398,0,0" VerticalAlignment="Top" Width="181"/>
+        <Label x:Name="Timer" Content="Time elapsed: " HorizontalAlignment="Left" Margin="770,429,0,0" VerticalAlignment="Top" RenderTransformOrigin="8.451,0.676"/>
 
     </Grid>
 </Window>

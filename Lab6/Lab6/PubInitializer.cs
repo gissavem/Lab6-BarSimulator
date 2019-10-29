@@ -9,11 +9,18 @@ namespace Lab6
 {
     class PubInitializer
     {
-
-        public PubInitializer()
+        
+        public PubInitializer(int numberOfGlasses, int numberOfChairs, int openingDuration)
         {
-
+            NumberOfGlasses = numberOfGlasses;
+            NumberOfChairs = numberOfChairs;
+            OpeningDuration = openingDuration;
         }
+
+        public int NumberOfGlasses { get; set; }
+        public int NumberOfChairs { get; set; }
+        public int OpeningDuration { get; set; }
+
         internal void InitializePub(Pub pub)
         {
             pub.Bar = GenerateBar(20);

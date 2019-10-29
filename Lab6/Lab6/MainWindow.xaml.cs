@@ -59,6 +59,7 @@ namespace Lab6
                 NumberOfGuestsLabel.Content = "Number of guests: " + (pub.TotalNumberOfGuests);
                 NumberOfGlassesLabel.Content = "Number of available glasses: " + (pub.Bar.AvailableGlasses.Count());
                 EmptyChairsLabel.Content = "Number of empty chairs: " + pub.NumberOfEmptyChairs();
+                Timer.Content = "Time elapsed: " + GetTimeAsString();
             });
         }
         private void OnOpenCloseClick(object sender, RoutedEventArgs e)
