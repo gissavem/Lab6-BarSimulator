@@ -7,26 +7,48 @@ using System.Threading.Tasks;
 
 namespace Lab6
 {
-    class PubInitializer
+    public class PubInitializer
     {
         
-        public PubInitializer(int numberOfGlasses, int numberOfChairs, int openingDuration)
+        public PubInitializer()
         {
-            NumberOfGlasses = numberOfGlasses;
-            NumberOfChairs = numberOfChairs;
-            OpeningDuration = openingDuration;
+            Settings = PubSetting.Default;
+            NumberOfChairs = 9;
+            NumberOfGlasses = 8;
+            OpeningDuration = 120000;
         }
-
+        public PubSetting Settings { get; set; }
         public int NumberOfGlasses { get; set; }
         public int NumberOfChairs { get; set; }
         public int OpeningDuration { get; set; }
 
         internal void InitializePub(Pub pub)
         {
+            GetSettings();
             pub.Bar = GenerateBar(20);
             pub.Employees = GenerateEmployees(pub, pub.LogHandler);
             pub.Chairs = GenereateChairs(3);
             pub.OpeningDuration = SetOpeningDuration();
+        }
+
+        private void GetSettings()
+        {
+            switch (Settings)
+            {
+                case PubSetting.TwentyGlasses:
+                    NumberOfChairs = 3;
+                    NumberOfGlasses = 20;
+                    break;
+                case PubSetting.TwentyChairs:
+                    NumberOfChairs = 20;
+                    NumberOfGlasses = 5;
+                    break;
+                case PubSetting.FiveMinuteBar:
+                    OpeningDuration = 300000;
+                    break;
+                case PubSetting.BusLoad:
+                    break;
+            }
         }
 
         internal BlockingCollection<Chair> GenereateChairs(int totalNumberOfChairs)

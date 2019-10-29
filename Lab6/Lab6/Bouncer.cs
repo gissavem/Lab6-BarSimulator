@@ -11,12 +11,28 @@ namespace Lab6
     {
         private Random random = new Random();
         private CancellationTokenSource cts = new CancellationTokenSource();
-        private bool isWorking = true; 
+        private bool isWorking = true;
+        private int guestDrinkingModifer = 1;
+        private int guestsToLetIn = 1;
+        private int speedModifier = 1;
         //ITS ME, BLACKSMITH
 
         public Bouncer(Pub pub, LogHandler logHandler):base(pub, logHandler)
         {
+            if (Pub.CurrentSetting == PubSetting.DoubleGuestTime)
+            {
+                guestDrinkingModifer = 2;
+            }
+            else if(Pub.CurrentSetting == PubSetting.CouplesNight)
+            {
+                guestsToLetIn = 2;
+            }
+            else if (Pub.CurrentSetting == PubSetting.BusLoad)
+            {
+                speedModifier = 2;
+            }
         }
+
 
         public override void Simulate()
         {
@@ -32,7 +48,8 @@ namespace Lab6
 
         public Patron LetPatronInside(Func<string> CheckID)
         {
-            var patron = new Patron(Pub.Guests.Count, CheckID(), Pub, LogHandler);
+
+            var patron = new Patron(Pub.Guests.Count, CheckID(), Pub, LogHandler, guestDrinkingModifer);
             LogHandler.UpdateLog($" {patron.Name} joined the party.", LogHandler.MainWindow.GuestAndBouncerLog);
             return patron;
         }
@@ -57,8 +74,11 @@ namespace Lab6
             {
                 return;
             }
-            Pub.Guests.TryAdd(Pub.Guests.Count, LetPatronInside(CheckID));
-            Pub.TotalNumberOfGuests++;
+            for (int i = 0; i < guestsToLetIn; i++)
+            {
+                Pub.Guests.TryAdd(Pub.Guests.Count, LetPatronInside(CheckID));
+                Pub.TotalNumberOfGuests++;
+            }
             if (Pub.CurrentState == PubState.PreOpening)
                 Pub.CurrentState = PubState.Open;
         }

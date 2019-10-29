@@ -23,20 +23,22 @@ namespace Lab6
     {
         public Action OpenClosePub;
         public Timer LabelTimer = new Timer(5);
-        private Pub pub;
+        public PubInitializer PubInitializer;
+        public Pub Pub;
         public MainWindow()
         {
             InitializeComponent();
             OpenCloseButton.Click += OnOpenCloseClick;
             LabelTimer.Elapsed += OnTimerTick;
-
+            var settingsWindow = new SettingsWindow(this);
             var logHandler = new LogHandler(this);
-            pub = new Pub(logHandler);
-            var pubInitializer = new PubInitializer();
-            pubInitializer.InitializePub(pub);
-            var pubSimulator = new PubSimulator(pub, this);
+            Pub = new Pub(logHandler);
+            Pub.PubTimer = LabelTimer;
+            PubInitializer = new PubInitializer();
+            var pubSimulator = new PubSimulator(Pub, this);
             OpenClosePub = pubSimulator.RunSimulation;
-            
+            settingsWindow.Show();            
+            this.Hide();               
         }
 
         private void OnTimerTick(object sender, ElapsedEventArgs e)
@@ -46,7 +48,7 @@ namespace Lab6
 
         public string GetTimeAsString()
         {
-            return (GetTimeSpan(pub.OpeningTimeStamp).Minutes) + ":" + (GetTimeSpan(pub.OpeningTimeStamp).Seconds);
+            return (GetTimeSpan(Pub.OpeningTimeStamp).Minutes) + ":" + (GetTimeSpan(Pub.OpeningTimeStamp).Seconds);
         }
         public static TimeSpan GetTimeSpan(DateTime openingTime)
         {
@@ -56,16 +58,16 @@ namespace Lab6
         {
             Dispatcher.Invoke(() =>
             {
-                NumberOfGuestsLabel.Content = "Number of guests: " + (pub.TotalNumberOfGuests);
-                NumberOfGlassesLabel.Content = "Number of available glasses: " + (pub.Bar.AvailableGlasses.Count());
-                EmptyChairsLabel.Content = "Number of empty chairs: " + pub.NumberOfEmptyChairs();
+                NumberOfGuestsLabel.Content = "Number of guests: " + (Pub.TotalNumberOfGuests);
+                NumberOfGlassesLabel.Content = "Number of available glasses: " + (Pub.Bar.AvailableGlasses.Count());
+                EmptyChairsLabel.Content = "Number of empty chairs: " + Pub.NumberOfEmptyChairs();
                 Timer.Content = "Time elapsed: " + GetTimeAsString();
             });
         }
         private void OnOpenCloseClick(object sender, RoutedEventArgs e)
         {
             OpenClosePub();
-            pub.StartJukeBox();
+            Pub.StartJukeBox();
             return;
         }
     }

@@ -11,10 +11,17 @@ namespace Lab6
     class Waitress : Agent
     {
         CancellationTokenSource cts = new CancellationTokenSource();
+        private int speedModifier = 1;
+        private int washingTime = 15000;
+        private int fetchingTime = 10000;
 
         public Waitress(Pub pub, LogHandler logHandler) : base(pub, logHandler)
         {
             Tray = new BlockingCollection<Glass>();
+            if (pub.CurrentSetting == PubSetting.FastWaitress)
+            {
+                speedModifier = 2;
+            }
         }
 
         BlockingCollection<Glass> Tray { get; set; }
@@ -53,7 +60,7 @@ namespace Lab6
         private void WashDishes()
         {
             LogHandler.UpdateLog(" washing dishes", LogHandler.MainWindow.WaitressLog);
-            Thread.Sleep(15000);
+            Thread.Sleep(washingTime / speedModifier);
         }
 
         private void FetchGlasses()
@@ -63,7 +70,7 @@ namespace Lab6
                 if (Pub.Bar.UsedGlasses.Any())
                 {
                     LogHandler.UpdateLog(" fetching dirty glasses", LogHandler.MainWindow.WaitressLog);
-                    Thread.Sleep(10000);
+                    Thread.Sleep(fetchingTime / speedModifier);
                     foreach (var glass in Pub.Bar.UsedGlasses)
                     {
                         var temp = Pub.Bar.UsedGlasses.Take();

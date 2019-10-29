@@ -10,13 +10,15 @@ namespace Lab6
     {
         private Random random = new Random();
         CancellationTokenSource cts = new CancellationTokenSource();
+        private int drinkingTime;
 
-        public Patron(int indexNumber, string name, Pub pub, LogHandler logHandler) : base(pub, logHandler)
+        public Patron(int indexNumber, string name, Pub pub, LogHandler logHandler, int speedModifier) : base(pub, logHandler)
         {
             var ct = cts.Token;
             IndexNumber = indexNumber;
             Name = name;
             var simulateGuest = Task.Run(()=>Simulate());
+            drinkingTime = random.Next(10000, 20000) * speedModifier;
         }
         public int IndexNumber { get; }
         public string Name { get; set; }
@@ -53,7 +55,7 @@ namespace Lab6
  
                 LogHandler.UpdateLog($" {Name} sat down, and is drinking their beer",
                                         LogHandler.MainWindow.GuestAndBouncerLog);
-                Thread.Sleep(random.Next(10000, 20000));
+                Thread.Sleep(drinkingTime);
                 LogHandler.UpdateLog($" {Name} finished their beer.",
                                         LogHandler.MainWindow.GuestAndBouncerLog);
                 Pub.Bar.UsedGlasses.Add(Beer);

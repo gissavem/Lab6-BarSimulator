@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Media;
+using System.Timers;
 
 namespace Lab6
 {
@@ -23,6 +24,8 @@ namespace Lab6
             CurrentState = PubState.PreOpening;
         }
         public PubState CurrentState { get; set; }
+        public System.Timers.Timer PubTimer { get; set; }
+        public PubSetting CurrentSetting { get; set; }
         public DateTime OpeningTimeStamp { get; set; }
         public int OpeningDuration { get; set; }
         public Bar Bar { get; set;}
