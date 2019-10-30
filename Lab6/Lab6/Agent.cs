@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Lab6
+﻿namespace Lab6
 {
     public abstract class Agent
     {
@@ -13,15 +7,9 @@ namespace Lab6
             Pub = pub;
             LogHandler = logHandler;
         }
-
-        public Pub Pub { get; }
-        public LogHandler LogHandler { get; }
-
+        protected Pub Pub { get; private set; }
+        protected LogHandler LogHandler { get; private set; }
         public abstract void GoHome();
-
         public abstract void Simulate();
-
-    }
-
-    
+    }    
 }

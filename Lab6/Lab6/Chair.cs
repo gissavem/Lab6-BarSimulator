@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Lab6
+﻿namespace Lab6
 {
     public class Chair
     {
@@ -12,8 +6,6 @@ namespace Lab6
         {
 
         }
-        
         public Patron Occupant { get; set; }
-       // public bool IsOccupied { get; set; }
     }
 }

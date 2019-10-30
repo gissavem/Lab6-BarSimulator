@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,34 +7,44 @@ namespace Lab6
     public class Patron : Agent
     {
         private Random random = new Random();
-        CancellationTokenSource cts = new CancellationTokenSource();
+        private CancellationTokenSource cts = new CancellationTokenSource();
         private int drinkingTime;
-
         public Patron(int indexNumber, string name, Pub pub, LogHandler logHandler, int speedModifier) : base(pub, logHandler)
         {
-            var ct = cts.Token;
             IndexNumber = indexNumber;
             Name = name;
             drinkingTime = random.Next(20000, 30000) * speedModifier;
             var simulateGuest = Task.Run(()=>Simulate());
         }
-        public int IndexNumber { get; }
-        public string Name { get; set; }
+        public int IndexNumber { get; private set; }
+        public string Name { get; private set; }
         public Glass Beer { get; set; }
         public bool IsSittingDown { get; set; }
         public bool HasBeenServed { get; set; }
 
         public override void Simulate()
         {
+            GoToBar();
+            WaitForBeer();
+            WaitForEmptyChair();
+            DrinkBeer();
+        }
+        private void GoToBar()
+        {
             Thread.Sleep(1000);
             LogHandler.UpdateLog($" {Name} went to the bar.", LogHandler.MainWindow.GuestAndBouncerLog);
             Pub.BarQueue.Add(this);
+        }
 
+        private void WaitForBeer()
+        {
             while (HasBeenServed == false)
             {
                 Thread.Sleep(10);
             }
-
+        }
+        private void WaitForEmptyChair()
+        {
             while (IsSittingDown == false && Beer != null)
             {
                 foreach (var chair in Pub.Chairs)
@@ -50,10 +58,11 @@ namespace Lab6
                 }
                 Thread.Sleep(10);
             }
-
+        }
+        private void DrinkBeer()
+        {
             if (Beer.HasBeer == true && IsSittingDown)
             {
- 
                 LogHandler.UpdateLog($" {Name} sat down, and is drinking their beer",
                                         LogHandler.MainWindow.GuestAndBouncerLog);
                 Thread.Sleep(drinkingTime);
@@ -62,11 +71,8 @@ namespace Lab6
                 Pub.Bar.UsedGlasses.Add(Beer);
                 Beer = null;
                 GoHome();
-                
             }
-            
         }
-
         public override void GoHome()
         {
             LogHandler.UpdateLog($" {Name} went home.",

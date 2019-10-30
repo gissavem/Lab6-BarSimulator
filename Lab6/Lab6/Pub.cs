@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Media;
-using System.Timers;
 
 namespace Lab6
 {
     public class Pub
     {
-        public SoundPlayer soundPlayer;
+        public SoundPlayer SoundPlayer;
 
         public Pub(LogHandler logHandler)
         { 
@@ -24,7 +20,6 @@ namespace Lab6
             CurrentState = PubState.PreOpening;
         }
         public PubState CurrentState { get; set; }
-        public System.Timers.Timer PubTimer { get; set; }
         public PubSetting CurrentSetting { get; set; }
         public DateTime OpeningTimeStamp { get; set; }
         public int OpeningDuration { get; set; }
@@ -33,10 +28,9 @@ namespace Lab6
         public BlockingCollection<Patron> BarQueue { get; set; }
         public ConcurrentDictionary<int, Patron> Guests { get; set; }
         public BlockingCollection<Agent> Employees { get; set; }
-        public LogHandler LogHandler { get; }
         public int TotalNumberOfGuests { get; set; }
-
-        internal void Open()
+        public LogHandler LogHandler { get; private set; }
+        public void Open()
         {
             foreach (var employee in Employees)
             {
@@ -44,30 +38,63 @@ namespace Lab6
             }
             var keepOpen = Task.Run(() => 
             {
-                Thread.Sleep(OpeningDuration);
-                foreach (Agent bouncer in Employees)
+                if (CurrentSetting == PubSetting.BusLoad)
                 {
-                    if (bouncer is Bouncer)
-                    {
-                        bouncer.GoHome();
-                        break;
-                    }
+                    RunBusLoadMode();
+                }
+                else
+                {
+                    RunDefaultMode();
                 }
             });
-            
         }
-
+        private void RunBusLoadMode()
+        {
+            Thread.Sleep(20000);
+            foreach (Agent agent in Employees)
+            {
+                if (agent is Bouncer bouncer)
+                {
+                    bouncer.LetBusIn();
+                    break;
+                }
+            }
+            Thread.Sleep(OpeningDuration - 20000);
+            foreach (Agent agent in Employees)
+            {
+                if (agent is Bouncer)
+                {
+                    agent.GoHome();
+                    break;
+                }
+            }
+        }
+        private void RunDefaultMode()
+        {
+            Thread.Sleep(OpeningDuration);
+            foreach (Agent bouncer in Employees)
+            {
+                if (bouncer is Bouncer)
+                {
+                    bouncer.GoHome();
+                    break;
+                }
+            }
+        }
         public void StartJukeBox()
         {
             var playMusic = Task.Run(() => 
             {
-                soundPlayer = new SoundPlayer();
-                soundPlayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\Sound\\starwarsmusic.wav";
-                soundPlayer.PlayLooping();
+                SoundPlayer = new SoundPlayer();
+                SoundPlayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\Sound\\starwarsmusic.wav";
+                SoundPlayer.PlayLooping();
             });
         }
-
-        internal int NumberOfEmptyChairs()
+        internal void StopJukeBox()
+        {
+            SoundPlayer.Stop();
+        }
+        public int NumberOfEmptyChairs()
         {
             int emptyChairs = 0;
             foreach (Chair chair in Chairs)
@@ -79,7 +106,6 @@ namespace Lab6
             }
             return emptyChairs;
         }
-
         public bool CanEmployeesLeave()
         {
             if (CurrentState == PubState.Closed && TotalNumberOfGuests == 0)
@@ -88,6 +114,5 @@ namespace Lab6
             }
             return false;
         }
-
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Concurrent;
 
 namespace Lab6
 {
@@ -18,19 +13,17 @@ namespace Lab6
             OpeningDuration = 120000;
         }
         public PubSetting Settings { get; set; }
-        public int NumberOfGlasses { get; set; }
-        public int NumberOfChairs { get; set; }
-        public int OpeningDuration { get; set; }
-
-        internal void InitializePub(Pub pub)
+        private int NumberOfGlasses { get; set; }
+        private int NumberOfChairs { get; set; }
+        private int OpeningDuration { get; set; }
+        public void InitializePub(Pub pub)
         {
             GetSettings();
-            pub.Bar = GenerateBar(20);
+            pub.Bar = GenerateBar(NumberOfGlasses);
             pub.Employees = GenerateEmployees(pub, pub.LogHandler);
-            pub.Chairs = GenereateChairs(3);
-            pub.OpeningDuration = SetOpeningDuration();
+            pub.Chairs = GenereateChairs(NumberOfChairs);
+            pub.OpeningDuration = OpeningDuration;
         }
-
         private void GetSettings()
         {
             switch (Settings)
@@ -46,23 +39,9 @@ namespace Lab6
                 case PubSetting.FiveMinuteBar:
                     OpeningDuration = 300000;
                     break;
-                case PubSetting.BusLoad:
-                    break;
             }
         }
-
-        internal BlockingCollection<Chair> GenereateChairs(int totalNumberOfChairs)
-        {
-
-            var chairs = new BlockingCollection<Chair>();
-            for (int i = 0; i < totalNumberOfChairs; i++)
-            {
-                chairs.Add(new Chair());
-            }
-            return chairs;
-        }
-
-        public Bar GenerateBar(int totalNumberOfGlasses)
+        private Bar GenerateBar(int totalNumberOfGlasses)
         {
             var bar = new Bar();
             for (int i = 0; i < totalNumberOfGlasses; i++)
@@ -72,8 +51,7 @@ namespace Lab6
 
             return bar;
         }
-
-        public BlockingCollection<Agent> GenerateEmployees(Pub pub, LogHandler logHandler)
+        private BlockingCollection<Agent> GenerateEmployees(Pub pub, LogHandler logHandler)
         {
             var employees = new BlockingCollection<Agent>
             {
@@ -83,10 +61,15 @@ namespace Lab6
             };
             return employees;
         }
-        public int SetOpeningDuration()
+        private BlockingCollection<Chair> GenereateChairs(int totalNumberOfChairs)
         {
-            int duration = 120000;
-            return duration;
+
+            var chairs = new BlockingCollection<Chair>();
+            for (int i = 0; i < totalNumberOfChairs; i++)
+            {
+                chairs.Add(new Chair());
+            }
+            return chairs;
         }
     }
 }

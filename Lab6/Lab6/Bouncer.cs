@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,8 +12,13 @@ namespace Lab6
         private int guestDrinkingModifer = 1;
         private int guestsToLetIn = 1;
         private int speedModifier = 1;
-        //ITS ME, BLACKSMITH
+        private int minWaitTime = 3000;
+        private int maxWaitTime = 10000;
 
+        /*
+         * Fix encapsulation of collections
+         * Make bouncer only work by one thread
+         */ 
         public Bouncer(Pub pub, LogHandler logHandler):base(pub, logHandler)
         {
             if (Pub.CurrentSetting == PubSetting.DoubleGuestTime)
@@ -32,7 +34,6 @@ namespace Lab6
                 speedModifier = 2;
             }
         }
-
         public override void Simulate()
         {
             var ct = cts.Token;
@@ -40,36 +41,13 @@ namespace Lab6
             {
                 while (ct.IsCancellationRequested == false)
                 {
-                    CheckNextpatronInLine();
-                    
+                    WelcomeNextPatron();
                 }
             });
         }
-
-        public Patron LetPatronInside(Func<string> CheckID)
+        private void WelcomeNextPatron()
         {
-
-            var patron = new Patron(Pub.Guests.Count, CheckID(), Pub, LogHandler, guestDrinkingModifer);
-            LogHandler.UpdateLog($" {patron.Name} joined the party.", LogHandler.MainWindow.GuestAndBouncerLog);
-            return patron;
-        }
-
-        private string CheckID()
-        {
-            return NameList.AvailableNames.Take();
-        }
-
-        public override void GoHome()
-        {
-            cts.Cancel();
-            isWorking = false;
-            LogHandler.UpdateLog("The bouncer went home.", LogHandler.MainWindow.GuestAndBouncerLog);
-            Pub.CurrentState = PubState.Closed;
-        }
-
-        public void CheckNextpatronInLine()
-        {
-            Thread.Sleep(random.Next(3000, 10000));
+            Thread.Sleep(random.Next(minWaitTime, maxWaitTime) * speedModifier);
             if (isWorking == false)
             {
                 return;
@@ -82,7 +60,31 @@ namespace Lab6
             if (Pub.CurrentState == PubState.PreOpening)
                 Pub.CurrentState = PubState.Open;
         }
+        private Patron LetPatronInside(Func<string> CheckID)
+        {
 
-        
+            var patron = new Patron(Pub.Guests.Count, CheckID(), Pub, LogHandler, guestDrinkingModifer);
+            LogHandler.UpdateLog($" {patron.Name} joined the party.", LogHandler.MainWindow.GuestAndBouncerLog);
+            return patron;
+        }
+        private string CheckID()
+        {
+            return NameList.AvailableNames.Take();
+        }
+        public override void GoHome()
+        {
+            cts.Cancel();
+            isWorking = false;
+            LogHandler.UpdateLog("The bouncer went home.", LogHandler.MainWindow.GuestAndBouncerLog);
+            Pub.CurrentState = PubState.Closed;
+        }
+        public void LetBusIn()
+        {
+            for (int i = 0; i < 15; i++)
+            {
+                Pub.Guests.TryAdd(Pub.Guests.Count, LetPatronInside(CheckID));
+                Pub.TotalNumberOfGuests++;
+            }
+        }
     }
 }

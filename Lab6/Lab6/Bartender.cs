@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,14 +7,11 @@ namespace Lab6
     class Bartender : Agent
     {
         private CancellationTokenSource cts = new CancellationTokenSource();
-        public Bartender(Pub pub, LogHandler logHandler) :base(pub, logHandler)
-        {
-        }
+        public Bartender(Pub pub, LogHandler logHandler) : base(pub, logHandler) { }
         public override void Simulate()
         {
             var isServingPatrons = Task.Run(()=>ServeGuests());            
         }
-
         private void ServeGuests()
         {
             var ct = cts.Token;
@@ -31,7 +25,6 @@ namespace Lab6
                 ServeNextPatron();
             }
         }
-
         private void ServeNextPatron()
         {
             Thread.Sleep(10);
@@ -40,7 +33,6 @@ namespace Lab6
                 ServePatronBeer(Pub.BarQueue.Take());
             }
         }
-
         private void ServePatronBeer(Patron patron)
         {
             var beerToServe = GetGlass();

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Concurrent;
 
 namespace Lab6
 {
@@ -17,6 +12,5 @@ namespace Lab6
             "Ett Fyllesvin", "Lasse Åberg", "Ben Rangel", "Didrik Fetknopp", "Wildkids Ola", "Gusten Grodslukare", 
             "Torsten Flinck", "Sebbe Staxx", "Lisa Lusis", "Lennart Bladh", "Kajsa Warg", "Tupac Shakur", "Augustus Ceasar"
         };
-
     }
 }

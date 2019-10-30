@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Threading;
 
 namespace Lab6
 {
@@ -18,20 +12,16 @@ namespace Lab6
             this.mainWindow = mainWindow;
             this.pub = pub;
         }
-
         public void RunSimulation()
         {
             mainWindow.OpenClosePub = ExitSimulation;
             pub.OpeningTimeStamp = DateTime.Now;
             pub.Open();
             mainWindow.LabelTimer.Start();
-
         }
-
         internal void ExitSimulation()
         {
-            mainWindow.OpenClosePub = RunSimulation;
-            throw new NotImplementedException();
+            Environment.Exit(Environment.ExitCode);
         }
     }
 }
