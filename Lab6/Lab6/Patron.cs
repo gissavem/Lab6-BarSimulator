@@ -78,14 +78,14 @@ namespace Lab6
 
         private void DrinkBeer()
         {
-                LogHandler.UpdateLog($" {Name} sat down, and is drinking their beer",
-                                        LogHandler.MainWindow.GuestAndBouncerLog);
-                Thread.Sleep(drinkingTime);
-                LogHandler.UpdateLog($" {Name} finished their beer.",
-                                        LogHandler.MainWindow.GuestAndBouncerLog);
-                Pub.Bar.AddUsedGlass(Beer);
-                Beer = null;
-                GoHome();
+            LogHandler.UpdateLog($" {Name} sat down, and is drinking their beer",
+                                    LogHandler.MainWindow.GuestAndBouncerLog);
+            Thread.Sleep(drinkingTime);
+            LogHandler.UpdateLog($" {Name} finished their beer.",
+                                    LogHandler.MainWindow.GuestAndBouncerLog);
+            Pub.Bar.AddUsedGlass(Beer);
+            Beer = null;
+            GoHome();
         }
         public override void GoHome()
         {
