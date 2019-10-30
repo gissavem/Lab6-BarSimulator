@@ -45,11 +45,7 @@ namespace Lab6
             var welcomeGuestsTask = Task.Run(() =>
             {
                 while (ct.IsCancellationRequested == false)
-                {
-                    if (DateTime.Now > pubClosingTime)
-                    {
-                        GoHome();
-                    }
+                {                    
                     WelcomeNextPatron();
                 }
             });
@@ -83,8 +79,8 @@ namespace Lab6
             WaitForGuests();
             for (int i = 0; i < guestsToLetIn; i++)
             {
-                Pub.Guests.TryAdd(Pub.Guests.Count, LetPatronInside(CheckID));
-                Pub.TotalNumberOfGuests++;
+                Patron patronToLetIn = LetPatronInside(CheckID);
+                Pub.AddGuest(patronToLetIn);
             }
             if (Pub.CurrentState == PubState.PreOpening)
                 Pub.CurrentState = PubState.Open;
@@ -96,13 +92,27 @@ namespace Lab6
             while (DateTime.Now < waitTime)
             {
                 Thread.Sleep(10);
-
+                if (ShouldGoHome())
+                {
+                    GoHome();
+                    break;
+                }
                 if (ShouldWaitForBus())
                 {
                     CheckForBus();
                 }
             }
         }
+
+        private bool ShouldGoHome()
+        {
+            if (DateTime.Now > pubClosingTime)
+            {
+                return true;
+            }
+            return false;
+        }
+
         private bool ShouldWaitForBus()
         {
             return Pub.CurrentSetting == PubSetting.BusLoad && hasBusArrived == false;
@@ -118,15 +128,15 @@ namespace Lab6
         {
             for (int i = 0; i < 15; i++)
             {
-                Pub.Guests.TryAdd(Pub.Guests.Count, LetPatronInside(CheckID));
-                Pub.TotalNumberOfGuests++;
+                Patron patronToLetIn = LetPatronInside(CheckID);
+                Pub.AddGuest(patronToLetIn);
             }
             hasBusArrived = true;
         }
         private Patron LetPatronInside(Func<string> CheckID)
         {
 
-            var patron = new Patron(Pub.Guests.Count, CheckID(), Pub, LogHandler, guestDrinkingModifer);
+            var patron = new Patron(Pub.GetGuestCount(), CheckID(), Pub, LogHandler, guestDrinkingModifer);
             LogHandler.UpdateLog($" {patron.Name} joined the party.", LogHandler.MainWindow.GuestAndBouncerLog);
             return patron;
         }

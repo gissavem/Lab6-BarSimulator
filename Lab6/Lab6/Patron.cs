@@ -33,7 +33,7 @@ namespace Lab6
         {
             Thread.Sleep(1000);
             LogHandler.UpdateLog($" {Name} went to the bar.", LogHandler.MainWindow.GuestAndBouncerLog);
-            Pub.BarQueue.Add(this);
+            Pub.GetInBarQueue(this);
         }
 
         private void WaitForBeer()
@@ -53,14 +53,12 @@ namespace Lab6
         {
             while (IsLookingForChair())
             {
-                foreach (var chair in Pub.Chairs)
+                Chair chair;
+                if (Pub.TryGetChair(out chair))
                 {
-                    if (IsAvailable(chair))
-                    {
-                        chair.Occupant = this;
-                        IsSittingDown = true;
-                        break;
-                    }
+                    chair.Occupant = this;
+                    IsSittingDown = true;
+                    break;
                 }
                 Thread.Sleep(10);
             }
@@ -69,11 +67,6 @@ namespace Lab6
         private bool IsLookingForChair()
         {
             return IsSittingDown == false && Beer != null;
-        }
-
-        private static bool IsAvailable(Chair chair)
-        {
-            return chair.Occupant == null;
         }
 
         private void DrinkBeer()
@@ -91,15 +84,9 @@ namespace Lab6
         {
             LogHandler.UpdateLog($" {Name} went home.",
                                       LogHandler.MainWindow.GuestAndBouncerLog);
-            Pub.Guests.TryRemove(IndexNumber, out _);
+            Pub.RemoveGuest(this);
             Pub.TotalNumberOfGuests--;
-            foreach (var chair in Pub.Chairs)
-            {
-                if (chair.Occupant == this)
-                {
-                    chair.Occupant = null;
-                }
-            }
+            Pub.RemovePatronFromChair(this);
         }
     }
 }

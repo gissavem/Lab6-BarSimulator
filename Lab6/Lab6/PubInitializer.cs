@@ -20,8 +20,8 @@ namespace Lab6
         {
             GetSettings();
             pub.Bar = GenerateBar(NumberOfGlasses);
-            pub.Employees = GenerateEmployees(pub, pub.LogHandler);
-            pub.Chairs = GenereateChairs(NumberOfChairs);
+            pub.SetEmployees(GenerateEmployees(pub, pub.LogHandler));
+            pub.SetChairs(GenereateChairs(NumberOfChairs));
             pub.OpeningDuration = OpeningDuration;
         }
         private void GetSettings()

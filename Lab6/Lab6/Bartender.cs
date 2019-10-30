@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -28,11 +29,12 @@ namespace Lab6
         private void ServeNextPatron()
         {
             Thread.Sleep(10);
-            if (Pub.BarQueue.Any())
+            if (Pub.CheckForLine())
             {
-                ServePatronBeer(Pub.BarQueue.Take());
+                ServePatronBeer(Pub.GetFirstPatronInLine());
             }
         }
+
         private void ServePatronBeer(Patron patron)
         {
             var beerToServe = GetGlass();
