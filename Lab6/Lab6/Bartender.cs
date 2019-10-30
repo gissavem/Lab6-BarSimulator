@@ -42,13 +42,13 @@ namespace Lab6
         }
         private Glass GetGlass()
         {
-           while (Pub.Bar.AvailableGlasses.Any() == false)
+           while (Pub.Bar.HasAvailableGlasses() == false)
            {
                 Thread.Sleep(10);
            }
            Thread.Sleep(3000);
            LogHandler.UpdateLog(" fetched a glass", LogHandler.MainWindow.BartenderLog);
-           return Pub.Bar.AvailableGlasses.Take();
+           return Pub.Bar.GetOneCleanGlass();
         }
         private void PourBeer(Glass beerToServe, Patron patron)
         {

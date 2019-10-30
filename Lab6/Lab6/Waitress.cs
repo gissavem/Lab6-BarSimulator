@@ -10,19 +10,19 @@ namespace Lab6
 {
     class Waitress : Agent
     {
+        private BlockingCollection<Glass> tray;
         private CancellationTokenSource cts = new CancellationTokenSource();
         private int speedModifier = 1;
         private int washingTime = 15000;
         private int fetchingTime = 10000;
         public Waitress(Pub pub, LogHandler logHandler) : base(pub, logHandler)
         {
-            Tray = new BlockingCollection<Glass>();
+            tray = new BlockingCollection<Glass>();
             if (pub.CurrentSetting == PubSetting.FastWaitress)
             {
                 speedModifier = 2;
             }
         }
-        BlockingCollection<Glass> Tray { get; set; }
         public override void Simulate()
         {
             var startTask = Task.Run(() => StartWorking());
@@ -44,16 +44,15 @@ namespace Lab6
         }
         private void FetchGlasses()
         {
-            while (Tray.Any() == false)
+            while (tray.Any() == false)
             {
-                if (Pub.Bar.UsedGlasses.Any())
+                if (Pub.Bar.HasUsedGlasses())
                 {
                     LogHandler.UpdateLog(" fetching dirty glasses", LogHandler.MainWindow.WaitressLog);
                     Thread.Sleep(fetchingTime / speedModifier);
-                    foreach (var glass in Pub.Bar.UsedGlasses)
+                    for (int i = 0; i < Pub.Bar.NumberOfUsedGlasses; i++)
                     {
-                        var temp = Pub.Bar.UsedGlasses.Take();
-                        Tray.Add(temp);
+                        tray.Add(Pub.Bar.GetOneUsedGlass());
                     }
                 }
                 Thread.Sleep(10);
@@ -68,10 +67,10 @@ namespace Lab6
         {
             Thread.Sleep(3000);
             LogHandler.UpdateLog(" returned glasses to bar", LogHandler.MainWindow.WaitressLog);
-            foreach (var glass in Tray)
+            foreach (var glass in tray)
             {
-                var temp = Tray.Take();
-                Pub.Bar.AvailableGlasses.Add(temp);
+                
+                Pub.Bar.AddAvailableGlass(tray.Take());
             }
         }
         public override void GoHome()

@@ -54,7 +54,7 @@ namespace Lab6
             Dispatcher.Invoke(() =>
             {
                 NumberOfGuestsLabel.Content = "Number of guests: " + (Pub.TotalNumberOfGuests);
-                NumberOfGlassesLabel.Content = "Number of available glasses: " + (Pub.Bar.AvailableGlasses.Count());
+                NumberOfGlassesLabel.Content = "Number of available glasses: " + (Pub.Bar.NumberOfAvailableGlasses);
                 EmptyChairsLabel.Content = "Number of empty chairs: " + Pub.NumberOfEmptyChairs();
                 Timer.Content = "Time elapsed: " + GetTimeAsString();
             });

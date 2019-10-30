@@ -68,7 +68,7 @@ namespace Lab6
                 Thread.Sleep(drinkingTime);
                 LogHandler.UpdateLog($" {Name} finished their beer.",
                                         LogHandler.MainWindow.GuestAndBouncerLog);
-                Pub.Bar.UsedGlasses.Add(Beer);
+                Pub.Bar.AddUsedGlass(Beer);
                 Beer = null;
                 GoHome();
             }

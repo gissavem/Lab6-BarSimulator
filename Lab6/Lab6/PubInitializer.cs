@@ -46,7 +46,7 @@ namespace Lab6
             var bar = new Bar();
             for (int i = 0; i < totalNumberOfGlasses; i++)
             {
-                bar.AvailableGlasses.Add(new Glass());
+                bar.AddAvailableGlass(new Glass());
             }
 
             return bar;
