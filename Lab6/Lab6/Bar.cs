@@ -16,35 +16,29 @@ namespace Lab6
         public int NumberOfUsedGlasses { get { return usedGlasses.Count(); } }
         public int NumberOfAvailableGlasses { get { return availableGlasses.Count(); } }
 
-        public bool HasUsedGlasses()
-        {
-            return usedGlasses.Any();
-        }
-
-
-        public Glass GetOneUsedGlass()
-        {
-           return usedGlasses.Take();
-        }
-
-        public void AddUsedGlass(Glass glass)
-        {
-            usedGlasses.Add(glass);
-        }
-
         public bool HasAvailableGlasses()
         {
             return availableGlasses.Any();
         }
-
+        public bool HasUsedGlasses()
+        {
+            return usedGlasses.Any();
+        }
         public Glass GetOneCleanGlass()
         {
             return availableGlasses.Take();
         }
-
+        public Glass GetOneUsedGlass()
+        {
+           return usedGlasses.Take();
+        }
         public void AddAvailableGlass(Glass glass)
         {
             availableGlasses.Add(glass);
+        }
+        public void AddUsedGlass(Glass glass)
+        {
+            usedGlasses.Add(glass);
         }
     }
 }
