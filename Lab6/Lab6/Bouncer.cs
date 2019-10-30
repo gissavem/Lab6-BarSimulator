@@ -33,7 +33,6 @@ namespace Lab6
             }
         }
 
-
         public override void Simulate()
         {
             var ct = cts.Token;
@@ -42,6 +41,7 @@ namespace Lab6
                 while (ct.IsCancellationRequested == false)
                 {
                     CheckNextpatronInLine();
+                    
                 }
             });
         }

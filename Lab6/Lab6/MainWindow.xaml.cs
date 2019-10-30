@@ -44,7 +44,10 @@ namespace Lab6
         private void OnTimerTick(object sender, ElapsedEventArgs e)
         {
             UpdateLabels();
+            
         }
+
+ 
 
         public string GetTimeAsString()
         {
