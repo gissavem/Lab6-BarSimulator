@@ -9,15 +9,15 @@
     <Grid x:Name="BarWindow">
         <ListBox x:Name="BartenderLog" HorizontalAlignment="Left" Height="337" Margin="20,36,0,0" VerticalAlignment="Top" Width="240"/>
         <ListBox x:Name="WaitressLog" HorizontalAlignment="Left" Height="337" Margin="274,36,0,0" VerticalAlignment="Top" Width="240"/>
-        <ListBox x:Name="GuestAndBouncerLog" HorizontalAlignment="Left" Height="337" Margin="526,36,0,0" VerticalAlignment="Top" Width="425"/>
+        <ListBox x:Name="GuestAndBouncerLog" HorizontalAlignment="Left" Height="337" Margin="526,36,0,0" VerticalAlignment="Top" Width="303"/>
         <Button x:Name="OpenCloseButton" Content="Open/Close Bar" HorizontalAlignment="Left" Margin="20,409,0,0" VerticalAlignment="Top" Width="931" Height="50"/>
         <Label x:Name="BartenderLabel" Content="Bartender" HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top" Width="108"/>
         <Label x:Name="WaitressLabel" Content="Waitress" HorizontalAlignment="Left" Margin="274,10,0,0" VerticalAlignment="Top" Width="108"/>
         <Label x:Name="GuestsLabel" Content="Guests" HorizontalAlignment="Left" Margin="526,10,0,0" VerticalAlignment="Top" Width="108"/>
         <Label x:Name="EmptyChairsLabel" Content="Number of empty chairs:" HorizontalAlignment="Left" Margin="20,378,0,0" VerticalAlignment="Top" Width="181"/>
-        <Label x:Name="NumberOfGuestsLabel" Content="Number of guests:" HorizontalAlignment="Left" Margin="206,378,0,0" VerticalAlignment="Top" Width="181"/>
-        <Label x:Name="NumberOfGlassesLabel" Content="Number of glasses:" HorizontalAlignment="Left" Margin="366,378,0,0" VerticalAlignment="Top" Width="181"/>
-        <Label x:Name="Timer" Content="Time elapsed: " HorizontalAlignment="Left" Margin="526,378,0,0" VerticalAlignment="Top" RenderTransformOrigin="8.451,0.676"/>
+        <Label x:Name="NumberOfGuestsLabel" Content="Number of guests:" HorizontalAlignment="Left" Margin="274,378,0,0" VerticalAlignment="Top" Width="181"/>
+        <Label x:Name="NumberOfGlassesLabel" Content="Number of glasses:" HorizontalAlignment="Left" Margin="526,378,0,0" VerticalAlignment="Top" Width="181"/>
+        <Label x:Name="Timer" Content="Time elapsed: " HorizontalAlignment="Left" Margin="829,378,0,0" VerticalAlignment="Top" RenderTransformOrigin="8.451,0.676"/>
 
     </Grid>
 </Window>
