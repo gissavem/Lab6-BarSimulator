@@ -38,18 +38,24 @@ namespace Lab6
 
         private void WaitForBeer()
         {
-            while (HasBeenServed == false)
+            while (InBarQueue())
             {
                 Thread.Sleep(10);
             }
         }
+
+        private bool InBarQueue()
+        {
+            return HasBeenServed == false;
+        }
+
         private void WaitForEmptyChair()
         {
-            while (IsSittingDown == false && Beer != null)
+            while (IsLookingForChair())
             {
                 foreach (var chair in Pub.Chairs)
                 {
-                    if (chair.Occupant == null)
+                    if (IsAvailable(chair))
                     {
                         chair.Occupant = this;
                         IsSittingDown = true;
@@ -59,10 +65,19 @@ namespace Lab6
                 Thread.Sleep(10);
             }
         }
+
+        private bool IsLookingForChair()
+        {
+            return IsSittingDown == false && Beer != null;
+        }
+
+        private static bool IsAvailable(Chair chair)
+        {
+            return chair.Occupant == null;
+        }
+
         private void DrinkBeer()
         {
-            if (Beer.HasBeer == true && IsSittingDown)
-            {
                 LogHandler.UpdateLog($" {Name} sat down, and is drinking their beer",
                                         LogHandler.MainWindow.GuestAndBouncerLog);
                 Thread.Sleep(drinkingTime);
@@ -71,7 +86,6 @@ namespace Lab6
                 Pub.Bar.AddUsedGlass(Beer);
                 Beer = null;
                 GoHome();
-            }
         }
         public override void GoHome()
         {

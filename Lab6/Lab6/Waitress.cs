@@ -44,7 +44,7 @@ namespace Lab6
         }
         private void FetchGlasses()
         {
-            while (tray.Any() == false)
+            while (TrayIsEmpty())
             {
                 if (Pub.Bar.HasUsedGlasses())
                 {
@@ -58,6 +58,12 @@ namespace Lab6
                 Thread.Sleep(10);
             }
         }
+
+        private bool TrayIsEmpty()
+        {
+            return tray.Any() == false;
+        }
+
         private void WashDishes()
         {
             LogHandler.UpdateLog(" washing dishes", LogHandler.MainWindow.WaitressLog);
@@ -69,10 +75,16 @@ namespace Lab6
             LogHandler.UpdateLog(" returned glasses to bar", LogHandler.MainWindow.WaitressLog);
             foreach (var glass in tray)
             {
-                
-                Pub.Bar.AddAvailableGlass(tray.Take());
+
+                Pub.Bar.AddAvailableGlass(GlassFromTray());
             }
         }
+
+        private Glass GlassFromTray()
+        {
+            return tray.Take();
+        }
+
         public override void GoHome()
         {
             cts.Cancel();
