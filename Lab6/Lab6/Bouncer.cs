@@ -15,10 +15,6 @@ namespace Lab6
         private int minWaitTime = 3000;
         private int maxWaitTime = 10000;
 
-        /*
-         * Fix encapsulation of collections
-         * Make bouncer only work by one thread
-         */ 
         public Bouncer(Pub pub, LogHandler logHandler):base(pub, logHandler)
         {
             if (Pub.CurrentSetting == PubSetting.DoubleGuestTime)
