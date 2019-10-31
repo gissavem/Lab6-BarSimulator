@@ -10,7 +10,7 @@ namespace Lab6
             "Olof Palme", "Berit Bredstjärt", "Dustin Hoffman", "Sylvester Stalone", "Angela Merkel", "Fredrik Reinfeldt",
             "John Andersson", "Alexander Bertillson", "Emil Martini", "Daniel Andersson", "Pontus Lindgren",
             "Ett Fyllesvin", "Lasse Åberg", "Ben Rangel", "Didrik Fetknopp", "Wildkids Ola", "Gusten Grodslukare", 
-            "Torsten Flinck", "Sebbe Staxx", "Lisa Lusis", "Lennart Bladh", "Kajsa Warg", "Tupac Shakur", "Augustus Ceasar"
+            "Torsten Flinck", "Sebbe Staxx", "Lisa Lusis", "Lennart Bladh", "Kajsa Warg", "Tupac Shakur", "Augustus Ceasar", "iewbgi", "jhaga", "isgbs","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg","shgbg"
         };
     }
 }

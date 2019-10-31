@@ -10,19 +10,16 @@ namespace Lab6
             Settings = PubSetting.Default;
             NumberOfChairs = 9;
             NumberOfGlasses = 8;
-            OpeningDuration = 120000;
         }
         public PubSetting Settings { get; set; }
         private int NumberOfGlasses { get; set; }
         private int NumberOfChairs { get; set; }
-        private int OpeningDuration { get; set; }
         public void InitializePub(Pub pub)
         {
             GetSettings();
             pub.Bar = GenerateBar(NumberOfGlasses);
             pub.SetEmployees(GenerateEmployees(pub, pub.LogHandler));
             pub.SetChairs(GenereateChairs(NumberOfChairs));
-            pub.OpeningDuration = OpeningDuration;
         }
         private void GetSettings()
         {
@@ -37,7 +34,6 @@ namespace Lab6
                     NumberOfGlasses = 5;
                     break;
                 case PubSetting.FiveMinuteBar:
-                    OpeningDuration = 300000;
                     break;
             }
         }

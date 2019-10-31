@@ -37,18 +37,20 @@ namespace Lab6
             }
         }
 
-        public override void Simulate()
+        public override async void Simulate()
         {
             var ct = cts.Token;
             SetBusTimer();
             SetBouncerWorkDuration();
-            var welcomeGuestsTask = Task.Run(() =>
-            {
-                while (ct.IsCancellationRequested == false)
-                {                    
-                    WelcomeNextPatron();
-                }
-            });
+
+                await Task.Run(() =>
+                {
+                    while (ct.IsCancellationRequested == false)
+                    {                    
+                        WelcomeNextPatron();
+                    }
+                });
+
         }
         private void SetBusTimer()
         {
@@ -65,17 +67,17 @@ namespace Lab6
             }
             else
             {
-                pubClosingTime = Pub.OpeningTimeStamp + new TimeSpan(0, 2, 0);
+                pubClosingTime = Pub.OpeningTimeStamp + new TimeSpan(0,2, 0);
             }
         }
         private void WelcomeNextPatron()
         {
+            WaitForGuests();
 
             if (isWorking == false)
             {
                 return;
             }
-            WaitForGuests();
             for (int i = 0; i < guestsToLetIn; i++)
             {
                 Patron patronToLetIn = LetPatronInside(CheckID);
@@ -92,16 +94,17 @@ namespace Lab6
             DateTime waitTime = DateTime.Now + new TimeSpan(0, 0, 0, 0, timeToWait);
             while (DateTime.Now < waitTime)
             {
-                Thread.Sleep(10);
                 if (ShouldGoHome())
                 {
                     GoHome();
+                    
                     break;
                 }
                 if (ShouldWaitForBus())
                 {
                     CheckForBus();
                 }
+                Thread.Sleep(10);
             }
         }
 
