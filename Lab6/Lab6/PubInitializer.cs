@@ -14,6 +14,8 @@ namespace Lab6
         public PubSetting Settings { get; set; }
         private int NumberOfGlasses { get; set; }
         private int NumberOfChairs { get; set; }
+        public int GlobalSpeedModifer { get; set; }
+
         public void InitializePub(Pub pub)
         {
             GetSettings();

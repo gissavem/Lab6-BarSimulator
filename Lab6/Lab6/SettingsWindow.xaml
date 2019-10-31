@@ -7,8 +7,11 @@
         mc:Ignorable="d"
         Title="SettingsWindow" Height="285.831" Width="447.57">
     <Grid>
-        <ComboBox x:Name="settingsDropBox" HorizontalAlignment="Left" Margin="109,58,0,0" VerticalAlignment="Top" Width="243" Height="26" SelectedIndex="0"/>
-        <Button x:Name="confirmSettingsButton" Content="Confirm Settings" HorizontalAlignment="Left" Margin="181,143,0,0" VerticalAlignment="Top" Width="98"/>
+        <ComboBox x:Name="settingsDropBox" HorizontalAlignment="Left" Margin="159,58,0,0" VerticalAlignment="Top" Width="243" Height="26" SelectedIndex="0"/>
+        <Button x:Name="confirmSettingsButton" Content="Confirm Settings" HorizontalAlignment="Left" Margin="159,143,0,0" VerticalAlignment="Top" Width="243"/>
+        <ComboBox x:Name="speedDropBox" HorizontalAlignment="Left" Margin="159,101,0,0" VerticalAlignment="Top" Width="243" SelectedIndex="0"/>
+        <Label Content="Simulation Settings" HorizontalAlignment="Left" Margin="42,58,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.579,-0.077"/>
+        <Label Content="Simulation Speed" HorizontalAlignment="Left" Margin="42,97,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

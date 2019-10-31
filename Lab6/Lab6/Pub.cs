@@ -31,6 +31,8 @@ namespace Lab6
         public Bar Bar { get; set;}
         public int TotalNumberOfGuests { get; set; }
         public LogHandler LogHandler { get; private set; }
+        public int GlobalSpeedModifer { get; set; }
+
         public void SetEmployees(BlockingCollection<Agent> employees)
         {
             this.employees = employees;
