@@ -70,7 +70,6 @@ namespace Lab6
                 pubClosingTime = Pub.OpeningTimeStamp + new TimeSpan(0,2, 0);
             }
         }
-
         private void WelcomeNextPatron()
         {
             WaitForGuests();
@@ -85,8 +84,10 @@ namespace Lab6
                 Pub.AddGuest(patronToLetIn);
             }
             if (Pub.CurrentState == PubState.PreOpening)
-                Pub.CurrentState = PubState.Open;
+                ChangePubState(PubState.Open);
         }
+
+
         private void WaitForGuests()
         {
             int timeToWait = random.Next(minWaitTime, maxWaitTime) * speedModifier;
@@ -147,12 +148,16 @@ namespace Lab6
         {
             return NameList.AvailableNames.Take();
         }
-        public override void GoHome()
+        private void ChangePubState(PubState state)
+        {
+            Pub.ChangeOpenStatus(state);
+        }
+        public override void GoHome() 
         {
             cts.Cancel();
             isWorking = false;
             LogHandler.UpdateLog("The bouncer went home.", LogHandler.MainWindow.GuestAndBouncerLog);
-            Pub.CurrentState = PubState.Closed;
+            ChangePubState(PubState.Closed);
         }
     }
 }

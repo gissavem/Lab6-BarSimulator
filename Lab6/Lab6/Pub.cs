@@ -20,11 +20,12 @@ namespace Lab6
             LogHandler = logHandler;
             CurrentState = PubState.PreOpening;
         }
-        public PubState CurrentState { get; set; }
+        public PubState CurrentState { get; private set; } // kanske inte ska vara helt public
 
-
+        // encapsylering privata behöver inte har propertys
+        // kanske inte public set på publica fält
         public PubSetting CurrentSetting { get; set; }
-        public DateTime OpeningTimeStamp { get; set; }
+        public DateTime OpeningTimeStamp { get; set; } 
         public int OpeningDuration { get; set; }
         public Bar Bar { get; set;}
         private BlockingCollection<Chair> Chairs { get; set; }
@@ -83,6 +84,12 @@ namespace Lab6
             chairToReturn = null;
             return false;
         }
+
+        public void ChangeOpenStatus(PubState state)
+        {
+            CurrentState = state;
+        }
+
         public void AddGuest(Patron patronToLetIn)
         {
             Guests.TryAdd(Guests.Count, patronToLetIn);
