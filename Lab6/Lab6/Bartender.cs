@@ -26,14 +26,28 @@ namespace Lab6
                     return;
                 }
                 ServeNextPatron();
+
             }
         }
         private void ServeNextPatron()
         {
-            Thread.Sleep(10);
+            WaitForGuest();
+
             if (Pub.CheckForLine())
             {
                 ServePatronBeer(Pub.GetFirstPatronInLine());
+            }
+        }
+
+        private void WaitForGuest()
+        {
+            if (Pub.CheckForLine() == false)
+            {
+                LogHandler.UpdateLog(" waiting for guest", LogHandler.MainWindow.BartenderLog);
+            }
+            while (Pub.CheckForLine() == false)
+            {
+                Thread.Sleep(10);
             }
         }
 

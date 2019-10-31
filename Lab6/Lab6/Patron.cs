@@ -47,6 +47,7 @@ namespace Lab6
         }
         private void WaitForEmptyChair()
         {
+            LogHandler.UpdateLog( $" {Name} is looking for a chair", LogHandler.MainWindow.GuestAndBouncerLog);
             while (IsLookingForChair())
             {
                 Chair chair;
