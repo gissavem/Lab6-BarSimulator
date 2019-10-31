@@ -37,15 +37,12 @@ namespace Lab6
             switch ((GlobalSpeed)speedDropBox.SelectedItem)
             {
                 case GlobalSpeed.Normal:
-                    mainWindow.PubInitializer.GlobalSpeedModifer = 1;
                     mainWindow.Pub.GlobalSpeedModifer = 1;
                     break;
                 case GlobalSpeed.TimesTwo:
-                    mainWindow.PubInitializer.GlobalSpeedModifer = 2;
                     mainWindow.Pub.GlobalSpeedModifer = 2;
                     break;
                 case GlobalSpeed.TimesFour:
-                    mainWindow.PubInitializer.GlobalSpeedModifer = 4;
                     mainWindow.Pub.GlobalSpeedModifer = 4;
                     break;
             }
