@@ -7,7 +7,6 @@ namespace Lab6
     public class Patron : Agent
     {
         private Random random = new Random();
-        private CancellationTokenSource cts = new CancellationTokenSource();
         private int drinkingTime;
         public Patron(int indexNumber, string name, Pub pub, LogHandler logHandler, int speedModifier) : base(pub, logHandler)
         {
@@ -21,7 +20,6 @@ namespace Lab6
         public Glass Beer { get; set; }
         public bool IsSittingDown { get; set; }
         public bool HasBeenServed { get; set; }
-
         public override void Simulate()
         {
             GoToBar();
@@ -35,7 +33,6 @@ namespace Lab6
             LogHandler.UpdateLog($" {Name} went to the bar.", LogHandler.MainWindow.GuestAndBouncerLog);
             Pub.GetInBarQueue(this);
         }
-
         private void WaitForBeer()
         {
             while (InBarQueue())
@@ -43,12 +40,10 @@ namespace Lab6
                 Thread.Sleep(10);
             }
         }
-
         private bool InBarQueue()
         {
             return HasBeenServed == false;
         }
-
         private void WaitForEmptyChair()
         {
             while (IsLookingForChair())
@@ -63,12 +58,10 @@ namespace Lab6
                 Thread.Sleep(10);
             }
         }
-
         private bool IsLookingForChair()
         {
             return IsSittingDown == false && Beer != null;
         }
-
         private void DrinkBeer()
         {
             LogHandler.UpdateLog($" {Name} sat down, and is drinking their beer",

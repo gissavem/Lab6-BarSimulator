@@ -11,7 +11,7 @@ namespace Lab6
         public Bartender(Pub pub, LogHandler logHandler) : base(pub, logHandler) { }
         public override void Simulate()
         {
-            var isServingPatrons = Task.Run(()=>ServeGuests());            
+            Task.Run(()=>ServeGuests());    
         }
         private void ServeGuests()
         {
