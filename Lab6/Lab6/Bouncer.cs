@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,6 +10,7 @@ namespace Lab6
         private Random random = new Random();
         private CancellationTokenSource cts = new CancellationTokenSource();
         private bool isWorking = true;
+        private Random rnd = new Random();
         private int guestDrinkingModifer = 1;
         private int guestsToLetIn = 1;
         private int speedModifier = 1;
@@ -146,7 +148,9 @@ namespace Lab6
         }
         private string CheckID()
         {
-            return NameList.AvailableNames.Take();
+            int nameIndex = rnd.Next(NameList.AvailableNames.Count());
+            string name = NameList.AvailableNames[nameIndex];
+            return name;
         }
         private void ChangePubState(PubState state)
         {
