@@ -58,18 +58,18 @@ namespace Lab6
         {
             if (Pub.CurrentSetting == PubSetting.BusLoad)
             {
-                busArriveTime = DateTime.Now + new TimeSpan(0, 0, 20);
+                busArriveTime = DateTime.Now + new TimeSpan(0, 0, 20 / Pub.GlobalSpeedModifer);
             }
         }
         private void SetBouncerWorkDuration()
         {
             if (Pub.CurrentSetting == PubSetting.FiveMinuteBar)
             {
-                pubClosingTime = Pub.OpeningTimeStamp + new TimeSpan(0, 5, 0);
+                pubClosingTime = Pub.OpeningTimeStamp + new TimeSpan(0,0, 0,0,300000 / Pub.GlobalSpeedModifer);
             }
             else
             {
-                pubClosingTime = Pub.OpeningTimeStamp + new TimeSpan(0,2, 0);
+                pubClosingTime = Pub.OpeningTimeStamp + new TimeSpan(0,0,0,0,120000 / Pub.GlobalSpeedModifer);
             }
         }
         private void WelcomeNextPatron()
@@ -92,7 +92,7 @@ namespace Lab6
 
         private void WaitForGuests()
         {
-            int timeToWait = random.Next(minWaitTime, maxWaitTime) * speedModifier;
+            int timeToWait = random.Next(minWaitTime, maxWaitTime) * speedModifier / Pub.GlobalSpeedModifer;
             DateTime waitTime = DateTime.Now + new TimeSpan(0, 0, 0, 0, timeToWait);
             while (DateTime.Now < waitTime)
             {

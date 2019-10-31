@@ -49,7 +49,7 @@ namespace Lab6
                 if (Pub.Bar.HasUsedGlasses())
                 {
                     LogHandler.UpdateLog(" fetching dirty glasses", LogHandler.MainWindow.WaitressLog);
-                    Thread.Sleep(fetchingTime / speedModifier);
+                    Thread.Sleep(fetchingTime / speedModifier / Pub.GlobalSpeedModifer);
                     for (int i = 0; i < Pub.Bar.NumberOfUsedGlasses; i++)
                     {
                         tray.Add(Pub.Bar.GetOneUsedGlass());
@@ -67,7 +67,7 @@ namespace Lab6
         private void WashDishes()
         {
             LogHandler.UpdateLog(" washing dishes", LogHandler.MainWindow.WaitressLog);
-            Thread.Sleep(washingTime / speedModifier);
+            Thread.Sleep(washingTime / speedModifier / Pub.GlobalSpeedModifer);
         }
         private void ReturnCleanGlasses()
         {

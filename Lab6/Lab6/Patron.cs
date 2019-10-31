@@ -7,12 +7,13 @@ namespace Lab6
     public class Patron : Agent
     {
         private Random random = new Random();
+        private int timeToWalkToBar = 1000;
         private int drinkingTime;
         public Patron(int indexNumber, string name, Pub pub, LogHandler logHandler, int speedModifier) : base(pub, logHandler)
         {
             IndexNumber = indexNumber;
             Name = name;
-            drinkingTime = random.Next(20000, 30000) * speedModifier;
+            drinkingTime = random.Next(20000, 30000) * speedModifier / Pub.GlobalSpeedModifer;
             var simulateGuest = Task.Run(()=>Simulate());
         }
         public int IndexNumber { get; private set; }
@@ -29,7 +30,7 @@ namespace Lab6
         }
         private void GoToBar()
         {
-            Thread.Sleep(1000);
+            Thread.Sleep(timeToWalkToBar / Pub.GlobalSpeedModifer);
             LogHandler.UpdateLog($" {Name} went to the bar.", LogHandler.MainWindow.GuestAndBouncerLog);
             Pub.GetInBarQueue(this);
         }
@@ -66,7 +67,7 @@ namespace Lab6
         {
             LogHandler.UpdateLog($" {Name} sat down, and is drinking their beer",
                                     LogHandler.MainWindow.GuestAndBouncerLog);
-            Thread.Sleep(drinkingTime);
+            Thread.Sleep(drinkingTime / Pub.GlobalSpeedModifer);
             LogHandler.UpdateLog($" {Name} finished their beer.",
                                     LogHandler.MainWindow.GuestAndBouncerLog);
             Pub.Bar.AddUsedGlass(Beer);

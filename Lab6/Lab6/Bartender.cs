@@ -8,6 +8,8 @@ namespace Lab6
     class Bartender : Agent
     {
         private CancellationTokenSource cts = new CancellationTokenSource();
+        private int pourBeer = 3000;
+        private int fetchGlass = 3000;
         public Bartender(Pub pub, LogHandler logHandler) : base(pub, logHandler) { }
         public override void Simulate()
         {
@@ -48,13 +50,13 @@ namespace Lab6
            {
                 Thread.Sleep(10);
            }
-           Thread.Sleep(3000);
+           Thread.Sleep(fetchGlass / Pub.GlobalSpeedModifer);
            LogHandler.UpdateLog(" fetched a glass", LogHandler.MainWindow.BartenderLog);
            return Pub.Bar.GetOneCleanGlass();
         }
         private void PourBeer(Glass beerToServe, Patron patron)
         {
-            Thread.Sleep(3000);
+            Thread.Sleep(pourBeer / Pub.GlobalSpeedModifer);
             LogHandler.UpdateLog($" poured {patron.Name} a beer.", LogHandler.MainWindow.BartenderLog);
             beerToServe.HasBeer = true;
         }
