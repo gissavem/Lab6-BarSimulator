@@ -163,5 +163,9 @@ namespace Lab6
             LogHandler.UpdateLog("The bouncer went home.", LogHandler.MainWindow.GuestAndBouncerLog);
             ChangePubState(PubState.Closed);
         }
+        public DateTime GetClosingTime()
+        {
+            return pubClosingTime;
+        }
     }
 }

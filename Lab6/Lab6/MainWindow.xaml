@@ -17,7 +17,8 @@
         <Label x:Name="EmptyChairsLabel" Content="Number of empty chairs:" HorizontalAlignment="Left" Margin="20,378,0,0" VerticalAlignment="Top" Width="181"/>
         <Label x:Name="NumberOfGuestsLabel" Content="Number of guests:" HorizontalAlignment="Left" Margin="274,378,0,0" VerticalAlignment="Top" Width="181"/>
         <Label x:Name="NumberOfGlassesLabel" Content="Number of glasses:" HorizontalAlignment="Left" Margin="526,378,0,0" VerticalAlignment="Top" Width="181"/>
-        <Label x:Name="Timer" Content="Time elapsed: " HorizontalAlignment="Left" Margin="829,378,0,0" VerticalAlignment="Top" RenderTransformOrigin="8.451,0.676"/>
+        <Label x:Name="Timer" Content="Time elapsed: " HorizontalAlignment="Left" Margin="865,378,0,0" VerticalAlignment="Top" RenderTransformOrigin="8.451,0.676"/>
+        <Label x:Name="BarCloses" Content="Bar closes at: " HorizontalAlignment="Left" Margin="865,352,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

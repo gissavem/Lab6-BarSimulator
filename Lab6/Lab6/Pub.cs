@@ -14,6 +14,7 @@ namespace Lab6
         private BlockingCollection<Patron> barQueue;
         private ConcurrentDictionary<int, Patron> guests; 
         private BlockingCollection<Agent> employees;
+        private Bouncer bouncer;
 
         public Pub(LogHandler logHandler)
         { 
@@ -27,7 +28,6 @@ namespace Lab6
         public PubState CurrentState { get; private set; } 
         public PubSetting CurrentSetting { get; set; }
         public DateTime OpeningTimeStamp { get; set; } 
-        public int OpeningDuration { get; set; }
         public Bar Bar { get; set;}
         public int TotalNumberOfGuests { get; set; }
         public LogHandler LogHandler { get; private set; }
@@ -36,6 +36,13 @@ namespace Lab6
         public void SetEmployees(BlockingCollection<Agent> employees)
         {
             this.employees = employees;
+            foreach (Agent employee in employees)
+            {
+                if (employee is Bouncer)
+                {
+                    bouncer = (Bouncer)employee;
+                }
+            }
         }
         public void SetChairs(BlockingCollection<Chair> chairs)
         {
@@ -68,6 +75,13 @@ namespace Lab6
                 SoundPlayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\Sound\\starwarsmusic.wav";
                 SoundPlayer.PlayLooping();
             });
+        }
+
+        public string GetCloseTime()
+        {
+            DateTime closingTime = bouncer.GetClosingTime();
+            TimeSpan timeSpan = closingTime - DateTime.Now;
+            return $"{timeSpan.Minutes}:{timeSpan.Seconds}";
         }
 
         public bool TryGetChair(out Chair chairToReturn)

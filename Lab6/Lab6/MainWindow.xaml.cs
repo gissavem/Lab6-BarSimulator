@@ -25,7 +25,7 @@ namespace Lab6
         public Timer LabelTimer = new Timer(5);
         public PubInitializer PubInitializer;
         public Pub Pub;
-        public MainWindow() // se över vad som skall loggas, kolla spec. tror det saknas bartenderväntar på kund, patron letar efter stol
+        public MainWindow() 
         {
             InitializeComponent();
             OpenCloseButton.Click += OnOpenCloseClick;
@@ -57,6 +57,7 @@ namespace Lab6
                 NumberOfGlassesLabel.Content = "Number of available glasses: " + (Pub.Bar.NumberOfAvailableGlasses);
                 EmptyChairsLabel.Content = "Number of empty chairs: " + Pub.NumberOfEmptyChairs();
                 Timer.Content = "Time elapsed: " + GetTimeAsString();
+                BarCloses.Content = "Bar closes in: " + Pub.GetCloseTime();
             });
         }
         public string GetTimeAsString()
